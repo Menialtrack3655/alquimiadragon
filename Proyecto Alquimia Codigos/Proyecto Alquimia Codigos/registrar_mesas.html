@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registro - Alquimia Dragon</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body class="bodyregistro">
+
+    <section class="contenedor">
+        <h2>Registro de Mesas, Juegos y Accesorios</h2>
+        <div class="registro-contenedor">
+            <form class="registro">
+                <h3>Registro de Mesas</h3>
+                <input type="text" placeholder="Nombre de la mesa">
+                <input type="text" placeholder="Ubicación">
+                <button type="submit" class="button">Guardar</button>
+            </form>
+
+            <form class="registro">
+                <h3>Registro de Juegos</h3>
+                <input type="text" placeholder="Nombre del juego">
+                <input type="text" placeholder="Categoría">
+                <button type="submit" class="button">Guardar</button>
+            </form>
+
+            <form class="registro">
+                <h3>Registro de Accesorios</h3>
+                <input type="text" placeholder="Nombre del accesorio">
+                <input type="text" placeholder="Cantidad">
+                <button type="submit" class="button">Guardar</button>
+            </form>
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="index.html" class="button">Regresar al Inicio</a>
+        </div>
+    </section>
+
+    <script>
+        // Ejemplo de script para guardar Mesas (similar a como guardabas usuarios/admins)
+        document.querySelectorAll(".registro").forEach(form => {
+            form.addEventListener("submit", function(e) {
+                e.preventDefault();
+                const formType = this.querySelector('h3').textContent.replace('Registro de ', '').trim();
+                let data = {};
+                let storageKey = '';
+
+                if (formType === "Mesas") {
+                    data = {
+                        nombre: this.children[1].value.trim(), // Input de nombre
+                        ubicacion: this.children[2].value.trim() // Input de ubicación
+                    };
+                    storageKey = "mesas";
+                } else if (formType === "Juegos") {
+                    data = {
+                        nombre: this.children[1].value.trim(),
+                        categoria: this.children[2].value.trim()
+                    };
+                    storageKey = "juegos";
+                } else if (formType === "Accesorios") {
+                    data = {
+                        nombre: this.children[1].value.trim(),
+                        cantidad: this.children[2].value.trim()
+                    };
+                    storageKey = "accesorios";
+                }
+
+                if (!data.nombre || (!data.ubicacion && !data.categoria && !data.cantidad)) {
+                    alert("Por favor, rellena todos los campos.");
+                    return;
+                }
+
+                let items = JSON.parse(localStorage.getItem(storageKey)) || [];
+                // Puedes añadir una comprobación para evitar duplicados si es necesario
+                // const yaExiste = items.some(item => item.nombre === data.nombre);
+                // if (yaExiste) { alert(`${formType} ya registrado.`); return; }
+
+                items.push(data);
+                localStorage.setItem(storageKey, JSON.stringify(items));
+                alert(`${formType} registrado con éxito.`);
+                this.reset();
+            });
+        });
+
+    </script>
+
+</body>
+</html>

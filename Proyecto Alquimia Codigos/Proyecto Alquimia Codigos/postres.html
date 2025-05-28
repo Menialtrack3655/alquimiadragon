@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aperitivos - Alquimia Dragon</title>
+    <link rel="stylesheet" href="estilos.css" />
+</head>
+<body class="bodyproductos">
+
+    <section class="productos-contenedor">
+        <h2>Nuestros Aperitivos</h2>
+        <div id="listaProductos" class="lista-productos">
+            <p class="mensaje-vacio" id="mensajeVacioPostre">No hay aperitivos registrados en el inventario.</p>
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="index.html" class="button">Regresar al Inicio</a>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const listaProductos = document.getElementById("listaProductos");
+            const mensajeVacioPostre = document.getElementById("mensajeVacioPostre"); // Referencia al mensaje de vacío específico
+            // Recupera el inventario general que contiene cafés, postres, etc.
+            const productos = JSON.parse(localStorage.getItem("inventario")) || [];
+
+            // Filtra solo los productos que tienen el tipo "postre"
+            const postres = productos.filter(producto => producto.tipo === "postre");
+
+            if (postres.length > 0) {
+                listaProductos.innerHTML = ''; // Limpia el mensaje de vacío si hay postres
+                postres.forEach(postre => {
+                    const productoCard = document.createElement("div");
+                    productoCard.classList.add("producto-card");
+                    productoCard.innerHTML = `
+                        <h3>${postre.nombre}</h3>
+                        <p>Precio: $${postre.precio.toFixed(2)}</p>
+                        <p>Stock: ${postre.stock} unidades</p>
+                    `;
+                    listaProductos.appendChild(productoCard);
+                });
+            } else {
+                // Si no hay postres, asegúrate de que el mensaje de vacío sea visible
+                mensajeVacioPostre.style.display = 'block'; 
+            }
+        });
+    </script>
+</body>
+</html>

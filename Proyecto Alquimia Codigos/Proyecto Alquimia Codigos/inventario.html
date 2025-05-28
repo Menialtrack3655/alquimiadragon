@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Inventario - Alquimia Dragon</title>
+    <link rel="stylesheet" href="estilos.css" />
+</head>
+<body class="bodyinventario">
+
+    <section class="contenedor">
+        <h2>Inventario de Alquimia Dragon Café</h2>
+
+        <div class="inventario-categorias">
+
+            <div class="categoria-item">
+                <h3>Granos de Café (Ingrediente)</h3>
+                <img src="imagenes/cafe-en-granos-43.jpg" alt="Icono de Granos de Café" class="categoria-imagen">
+                <div class="lista-items" id="lista-cafe-granos">
+                    </div>
+                <form class="form-add-new-item" data-categoria="cafeGranos">
+                    <input type="text" placeholder="Nuevo tipo de grano" required>
+                    <input type="number" placeholder="Cant. inicial (kg)" min="0" step="0.1" required>
+                    <button type="submit" class="button">Agregar Grano</button>
+                </form>
+            </div>
+
+            <div class="categoria-item">
+                <h3>Cafés Preparados (Producto)</h3>
+                <img src="imagenes/cafe-preparado.jpg" alt="Icono de Cafés Preparados" class="categoria-imagen">
+                <div class="lista-items" id="lista-cafes-preparados">
+                    </div>
+                <form class="form-add-new-item" data-categoria="cafesPreparados">
+                    <input type="text" placeholder="Nombre del café" required>
+                    <input type="number" placeholder="Precio ($)" min="0" step="0.01" required>
+                    <input type="number" placeholder="Stock inicial" min="0" required>
+                    <button type="submit" class="button">Agregar Café</button>
+                </form>
+            </div>
+
+            <div class="categoria-item">
+                <h3>Postres (Producto)</h3>
+                <img src="imagenes/postre2.jpg" alt="Icono de Postres" class="categoria-imagen">
+                <div class="lista-items" id="lista-postres">
+                    </div>
+                <form class="form-add-new-item" data-categoria="postres">
+                    <input type="text" placeholder="Nombre del postre" required>
+                    <input type="number" placeholder="Precio ($)" min="0" step="0.01" required>
+                    <input type="number" placeholder="Stock inicial" min="0" required>
+                    <button type="submit" class="button">Agregar Postre</button>
+                </form>
+            </div>
+
+            <div class="categoria-item">
+                <h3>Harinas (Ingrediente)</h3>
+                <img src="imagenes/harina-de-reposteria.jpg" alt="Icono de Harinas" class="categoria-imagen">
+                <div class="lista-items" id="lista-harinas">
+                    </div>
+                <form class="form-add-new-item" data-categoria="harinas">
+                    <input type="text" placeholder="Tipo de harina" required>
+                    <input type="number" placeholder="Cant. inicial (kg)" min="0" step="0.1" required>
+                    <button type="submit" class="button">Agregar Harina</button>
+                </form>
+            </div>
+
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="index.html" class="button">Regresar al Inicio</a>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inventario de INGREDIENTES Y PRODUCTOS CON STOCK DIRECTO
+            const inventarioGestion = {
+                // Granos de café (materia prima)
+                cafeGranos: [
+                    { id: Date.now() + 1, nombre: 'Arábica Supremo', cantidad: 5.0, unidad: 'kg' },
+                    { id: Date.now() + 2, nombre: 'Robusta Fuerte', cantidad: 3.5, unidad: 'kg' }
+                ],
+                // Cafés preparados (productos a la venta)
+                cafesPreparados: [
+                    { id: Date.now() + 3, nombre: 'Espresso Valyrio', precio: 4.50, stock: 100 },
+                    { id: Date.now() + 4, nombre: 'Capuccino del Muro', precio: 5.00, stock: 80 }
+                ],
+                // Postres (productos a la venta)
+                postres: [
+                    { id: Date.now() + 5, nombre: 'Tarta de Chocolate', precio: 8.00, stock: 30 },
+                    { id: Date.now() + 6, nombre: 'Cheesecake de Frutos Rojos', precio: 7.50, stock: 25 }
+                ],
+                // Harinas (materia prima)
+                harinas: [
+                    { id: Date.now() + 7, nombre: 'Harina de Trigo (Todo Uso)', cantidad: 25.0, unidad: 'kg' },
+                    { id: Date.now() + 8, nombre: 'Harina Integral', cantidad: 10.0, unidad: 'kg' }
+                ]
+            };
+
+            // Función para generar IDs únicos
+            const generateUniqueId = () => Date.now() + Math.floor(Math.random() * 1000);
+
+            // FUNCIÓN CLAVE: Guarda el inventario de gestión y también un INVENTARIO DE PRODUCTOS TERMINADOS (para cafes.html y postres.html)
+            const guardarInventario = () => {
+                localStorage.setItem('inventarioGestion', JSON.stringify(inventarioGestion));
+
+                let productosParaVenta = [];
+
+                // Agrega los cafés preparados directamente a la lista de venta
+                inventarioGestion.cafesPreparados.forEach(item => {
+                    productosParaVenta.push({
+                        id: item.id,
+                        nombre: item.nombre,
+                        precio: item.precio,
+                        stock: item.stock,
+                        tipo: "cafe" // Marcamos como "cafe" para cafes.html
+                    });
+                });
+
+                // Agrega los postres directamente a la lista de venta
+                inventarioGestion.postres.forEach(item => {
+                    productosParaVenta.push({
+                        id: item.id,
+                        nombre: item.nombre,
+                        precio: item.precio,
+                        stock: item.stock,
+                        tipo: "postre" // Marcamos como "postre" para postres.html
+                    });
+                });
+
+                // Las harinas y granos de café (materia prima) no se agregan a productosParaVenta
+                // porque no son productos finales para la venta.
+
+                localStorage.setItem('inventario', JSON.stringify(productosParaVenta));
+            };
+
+            // Función para cargar el inventario de gestión desde localStorage
+            const cargarInventario = () => {
+                const storedInventario = localStorage.getItem('inventarioGestion');
+                if (storedInventario) {
+                    Object.assign(inventarioGestion, JSON.parse(storedInventario));
+                }
+                // Asegurarse de que todos los ítems cargados tengan un ID y unidad/precio/stock
+                Object.keys(inventarioGestion).forEach(cat => {
+                    inventarioGestion[cat].forEach(item => {
+                        if (!item.id) item.id = generateUniqueId();
+                        if (cat === 'cafeGranos' || cat === 'harinas') {
+                            if (!item.unidad) item.unidad = 'kg';
+                        } else if (cat === 'cafesPreparados' || cat === 'postres') {
+                            if (item.precio === undefined) item.precio = 0; // Asegura precio
+                            if (item.stock === undefined) item.stock = 0;   // Asegura stock
+                        }
+                    });
+                });
+            };
+
+            // Función para renderizar los ítems de una categoría (en el inventario de gestión)
+            const renderItems = (categoria, idLista) => {
+                const listaDiv = document.getElementById(idLista);
+                listaDiv.innerHTML = '';
+
+                if (inventarioGestion[categoria].length === 0) {
+                    listaDiv.innerHTML = '<p class="mensaje-vacio">No hay ítems registrados en esta categoría.</p>';
+                    return;
+                }
+
+                inventarioGestion[categoria].forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('item-inventario');
+                    itemDiv.dataset.itemId = item.id;
+                    itemDiv.dataset.categoria = categoria;
+
+                    let displayHtml = `<span class="item-nombre">${item.nombre}:</span><div class="item-actions">`;
+                    let inputStep = '1';
+
+                    if (categoria === 'cafeGranos' || categoria === 'harinas') {
+                        inputStep = '0.1';
+                        displayHtml += `
+                            <button class="button-action decrease-btn" aria-label="Restar">-</button>
+                            <input type="number" class="item-cantidad" value="${item.cantidad}" min="0" step="${inputStep}">
+                            <span class="item-unidad">${item.unidad}</span>
+                            <button class="button-action increase-btn" aria-label="Sumar">+</button>
+                        `;
+                    } else if (categoria === 'cafesPreparados' || categoria === 'postres') {
+                        inputStep = '1'; // El stock de productos vendidos es en unidades
+                        displayHtml += `
+                            <span class="item-precio">($${item.precio.toFixed(2)})</span>
+                            <button class="button-action decrease-btn" aria-label="Restar">-</button>
+                            <input type="number" class="item-stock" value="${item.stock}" min="0" step="${inputStep}">
+                            <span class="item-unidad">unidades</span>
+                            <button class="button-action increase-btn" aria-label="Sumar">+</button>
+                        `;
+                    }
+                    displayHtml += `</div>`;
+                    itemDiv.innerHTML = displayHtml;
+                    listaDiv.appendChild(itemDiv);
+                });
+
+                // Añadir event listeners a los nuevos botones y inputs de cantidad/stock
+                listaDiv.querySelectorAll('.increase-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const itemDiv = this.closest('.item-inventario');
+                        const itemId = parseFloat(itemDiv.dataset.itemId);
+                        const categoria = itemDiv.dataset.categoria;
+                        const item = inventarioGestion[categoria].find(i => i.id === itemId);
+
+                        if (item) {
+                            let inputElement;
+                            if (categoria === 'cafeGranos' || categoria === 'harinas') {
+                                inputElement = itemDiv.querySelector('.item-cantidad');
+                                item.cantidad = parseFloat(item.cantidad) + parseFloat(inputElement.step);
+                                item.cantidad = parseFloat(item.cantidad.toFixed(1)); // Para kg
+                                inputElement.value = item.cantidad;
+                            } else if (categoria === 'cafesPreparados' || categoria === 'postres') {
+                                inputElement = itemDiv.querySelector('.item-stock');
+                                item.stock = parseInt(item.stock) + parseInt(inputElement.step);
+                                inputElement.value = item.stock;
+                            }
+                            guardarInventario();
+                        }
+                    });
+                });
+
+                listaDiv.querySelectorAll('.decrease-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const itemDiv = this.closest('.item-inventario');
+                        const itemId = parseFloat(itemDiv.dataset.itemId);
+                        const categoria = itemDiv.dataset.categoria;
+                        const item = inventarioGestion[categoria].find(i => i.id === itemId);
+
+                        if (item) {
+                            let inputElement;
+                            if (categoria === 'cafeGranos' || categoria === 'harinas') {
+                                inputElement = itemDiv.querySelector('.item-cantidad');
+                                let newQuantity = parseFloat(item.cantidad) - parseFloat(inputElement.step);
+                                if (newQuantity < 0) newQuantity = 0;
+                                item.cantidad = parseFloat(newQuantity.toFixed(1));
+                                inputElement.value = item.cantidad;
+                            } else if (categoria === 'cafesPreparados' || categoria === 'postres') {
+                                inputElement = itemDiv.querySelector('.item-stock');
+                                let newStock = parseInt(item.stock) - parseInt(inputElement.step);
+                                if (newStock < 0) newStock = 0;
+                                item.stock = newStock;
+                                inputElement.value = item.stock;
+                            }
+                            guardarInventario();
+                        }
+                    });
+                });
+
+                listaDiv.querySelectorAll('.item-cantidad, .item-stock').forEach(input => {
+                    input.addEventListener('change', function() {
+                        const itemDiv = this.closest('.item-inventario');
+                        const itemId = parseFloat(itemDiv.dataset.itemId);
+                        const categoria = itemDiv.dataset.categoria;
+                        const item = inventarioGestion[categoria].find(i => i.id === itemId);
+
+                        let newValue = parseFloat(this.value);
+                        if (isNaN(newValue) || newValue < 0) {
+                            newValue = 0;
+                            this.value = 0;
+                        }
+
+                        if (item) {
+                            if (this.classList.contains('item-cantidad')) { // Para ingredientes (kg)
+                                item.cantidad = parseFloat(newValue.toFixed(1));
+                            } else if (this.classList.contains('item-stock')) { // Para productos (unidades)
+                                item.stock = parseInt(newValue);
+                            }
+                            this.value = newValue; // Actualiza el input con el valor formateado
+                            guardarInventario();
+                        }
+                    });
+                });
+            };
+
+            // Cargar inventario de gestión al inicio
+            cargarInventario();
+
+            // Renderizar todas las categorías de gestión al cargar la página
+            renderItems('cafeGranos', 'lista-cafe-granos');
+            renderItems('cafesPreparados', 'lista-cafes-preparados'); // Nueva sección
+            renderItems('postres', 'lista-postres');
+            renderItems('harinas', 'lista-harinas');
+
+            // Manejar la adición de nuevos ítems (formularios de agregar nuevo tipo)
+            document.querySelectorAll('.form-add-new-item').forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const categoria = this.dataset.categoria;
+                    const nombreInput = this.querySelector('input[type="text"]');
+                    const cantidadInput = this.querySelector('input[type="number"]:nth-of-type(1)'); // Primer input numérico
+                    const stockOrPriceInput = this.querySelector('input[type="number"]:nth-of-type(2)'); // Segundo input numérico (precio o stock)
+
+                    const nombre = nombreInput.value.trim();
+                    let valor1 = parseFloat(cantidadInput.value); // Cantidad inicial (granos/harinas) o Precio (cafés/postres)
+                    let valor2 = (stockOrPriceInput) ? parseFloat(stockOrPriceInput.value) : undefined; // Stock inicial (cafés/postres)
+
+                    if (nombre && !isNaN(valor1) && valor1 >= 0 && (stockOrPriceInput ? (!isNaN(valor2) && valor2 >= 0) : true)) {
+                        const existingItem = inventarioGestion[categoria].find(item => item.nombre.toLowerCase() === nombre.toLowerCase());
+
+                        if (existingItem) {
+                            alert(`El tipo de "${nombre}" ya existe. Puedes ajustar su cantidad/stock directamente en la lista.`);
+                        } else {
+                            let newItem;
+                            if (categoria === 'cafeGranos' || categoria === 'harinas') {
+                                newItem = {
+                                    id: generateUniqueId(),
+                                    nombre: nombre,
+                                    cantidad: valor1,
+                                    unidad: (categoria === 'cafeGranos' ? 'kg' : 'kg') // Harinas también son kg
+                                };
+                            } else if (categoria === 'cafesPreparados' || categoria === 'postres') {
+                                newItem = {
+                                    id: generateUniqueId(),
+                                    nombre: nombre,
+                                    precio: valor1, // Aquí valor1 es el precio
+                                    stock: valor2 // Aquí valor2 es el stock
+                                };
+                            }
+
+                            inventarioGestion[categoria].push(newItem);
+                            alert(`"${nombre}" agregado a la categoría "${categoria}".`);
+                            guardarInventario(); // Guarda ambos inventarios
+                            renderItems(categoria, `lista-${categoria}`);
+                            this.reset(); // Limpiar el formulario
+                        }
+                    } else {
+                        alert('Por favor, ingresa un nombre y valores iniciales válidos.');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

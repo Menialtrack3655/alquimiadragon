@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>ver-mesas - Alquimia Dragon</title>
+    <link rel="stylesheet" href="estilos.css" />
+</head>
+<body class="bodyvermesas">
+
+    <section class="mesas-registradas-contenedor">
+        <h2>Mesas Registradas</h2>
+        <ul id="listaDeMesas" class="lista-mesas">
+            <li class="mensaje-vacio">No hay mesas registradas aún.</li>
+        </ul>
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="index.html" class="button">Regresar al Inicio</a>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const listaDeMesas = document.getElementById("listaDeMesas");
+            const mesas = JSON.parse(localStorage.getItem("mesas")) || [];
+
+            // Limpiar el mensaje de vacío si hay mesas
+            if (mesas.length > 0) {
+                listaDeMesas.innerHTML = ''; // Limpia el mensaje "No hay mesas registradas"
+                mesas.forEach(mesa => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `<strong>${mesa.nombre}</strong><br>Ubicación: ${mesa.ubicacion}`;
+                    listaDeMesas.appendChild(li);
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

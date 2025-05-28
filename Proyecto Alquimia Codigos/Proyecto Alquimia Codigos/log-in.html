@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - AlquimiaDragon</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="bodylogin1">
+    <div class="container">
+        <div class="left-section">
+            <img src="imagenes/targerian.png" alt="Logo AlquimiaDragon" class="logo">
+            <h1 class="brand">AlquimiaDragon</h1>
+            <h2 class="slogan">Crea historias...</h2>
+            <p class="description">Aquí, las sombras danzan y los secretos se forjan. Inicia tu viaje, tu destino aguarda en Alquimia Dragon.</p>
+        </div>
+
+        <div class="right-section">
+            <h3>Bienvenido</h3>
+            <h2>Inicia Sesión</h2>
+
+            <form action="#" method="POST">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="jhonsnow@hotmail.com" required>
+
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Continuar</button>
+            </form>
+
+            <p class="register">¿Usuario Nuevo? <a href="registro.html">Registrar</a></p>
+        </div>
+    </div>
+
+    <script>
+    document.querySelector("form").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const emailIngresado = document.getElementById("email").value;
+        const passwordIngresado = document.getElementById("password").value;
+
+        // Recuperar el admin y el usuario registrado de localStorage
+        const admin = JSON.parse(localStorage.getItem("admin"));
+        const usuario = JSON.parse(localStorage.getItem("usuario")); // Este es el usuario registrado normalmente
+
+        let accesoPermitido = false;
+        let userDataToStore = null; // Variable para almacenar los datos del usuario que inicia sesión
+
+        // Verificar credenciales de administrador
+        if (admin && admin.email === emailIngresado && admin.password === passwordIngresado) {
+            accesoPermitido = true;
+            userDataToStore = admin; // Guardar los datos del administrador
+            alert("Bienvenido Administrador " + admin.nombre);
+            // Redirige al panel de inventario para el admin
+            window.location.href = "inventario.html";
+        }
+        // Verificar credenciales de usuario normal
+        else if (usuario && usuario.email === emailIngresado && usuario.password === passwordIngresado) {
+            accesoPermitido = true;
+            userDataToStore = usuario; // Guardar los datos del usuario normal
+            alert("Bienvenido Usuario " + usuario.nombre);
+            // Redirige a la página de perfil para el usuario normal
+            window.location.href = "perfil.html";
+        }
+
+        // Si el acceso fue permitido, guardar los datos del usuario en localStorage
+        if (accesoPermitido) {
+            localStorage.setItem('loggedInUser', JSON.stringify(userDataToStore));
+        } else {
+            // Si el acceso no fue permitido, mostrar un mensaje de error
+            alert("Correo o contraseña incorrectos.");
+        }
+    });
+</script>
+</body>
+</html>

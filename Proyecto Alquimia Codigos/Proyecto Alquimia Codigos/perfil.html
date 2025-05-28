@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario - La Sala de los Maestros</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="bodyperfil">
+    <header class="user-header">
+        <div class="user-info">
+            <span class="header-text">Usuario: <strong id="user-name-display">Cargando...</strong></span>
+            <span class="header-text">Mesa Registrada: <strong id="user-table-display">Cargando...</strong></span>
+            <span class="header-text">Jugadores: <strong id="user-players-display">Cargando...</strong></span>
+        </div>
+        <nav class="user-nav">
+            <ul>
+                <li><a href="#" id="change-user-link">Cambiar de Usuario</a></li>
+                <li><a href="#" id="logout-link">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="profile-content">
+        <h1 id="welcome-message">¡Bienvenido, Usuario!</h1>
+
+        <section class="profile-actions">
+            <p>Aquí tienes las opciones principales para empezar tu experiencia en La Sala de los Maestros:</p>
+            <div class="action-buttons">
+                <a href="cafes_usuario.html" class="button profile-button">Ver Catálogo de Cafés</a>
+                <a href="postres_usuario.html" class="button profile-button">Ver Catálogo de Postres</a>
+                <a href="reservas_usuario.html" class="button profile-button">Modificar Reserva</a>
+            </div>
+        </section>
+
+        <section class="user-details-section">
+            <h2>Mi Información</h2>
+            <div class="user-details-grid">
+                <div>
+                    <h3>Nombre Completo:</h3>
+                    <p id="full-name">Cargando...</p>
+                </div>
+                <div>
+                    <h3>Email:</h3>
+                    <p id="user-email">Cargando...</p>
+                </div>
+                <div>
+                    <h3>Fecha de Registro:</h3>
+                    <p id="registration-date">Cargando...</p>
+                </div>
+                <div>
+                    <h3>Preferencias:</h3>
+                    <p id="user-preferences">Cargando...</p>
+                </div>
+                <div>
+                    <h3>Número de Celular:</h3>
+                    <p id="user-phone">No especificado</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="text-center margin-top-large">
+            <a href="index.html" class="button">Regresar al Inicio</a>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar los datos del usuario desde localStorage
+            const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+            if (loggedInUser) {
+                // Actualizar la información en la página
+                document.getElementById('user-name-display').textContent = loggedInUser.nombre || 'No disponible';
+                document.getElementById('user-table-display').textContent = loggedInUser.table || 'No registrada';
+                document.getElementById('user-players-display').textContent = loggedInUser.players || '0';
+                document.getElementById('welcome-message').textContent = `¡Bienvenido, ${loggedInUser.nombre || 'Usuario'}!`;
+                document.getElementById('full-name').textContent = loggedInUser.fullName || loggedInUser.nombre || 'No disponible';
+                document.getElementById('user-email').textContent = loggedInUser.email || 'No disponible';
+                document.getElementById('registration-date').textContent = loggedInUser.registrationDate || 'No disponible';
+                document.getElementById('user-preferences').textContent = loggedInUser.preferences || 'Ninguna';
+                document.getElementById('user-phone').textContent = loggedInUser.telefono || 'No especificado';
+
+            } else {
+                // Si no hay usuario logueado, redirige a la página de login
+                alert('No se ha iniciado sesión. Redirigiendo al login.');
+                window.location.href = 'login.html'; // Asegúrate de que 'login.html' sea tu página de login principal
+            }
+
+            // Funcionalidad de "Cambiar de Usuario"
+            document.getElementById('change-user-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('loggedInUser'); // Borra la sesión actual
+                alert('Sesión actual cerrada. Redirigiendo a la página de inicio de sesión para cambiar de usuario.');
+                window.location.href = 'log-in.html'; // Redirige a la página de login (donde eliges usuario/admin)
+            });
+
+            // Funcionalidad de "Cerrar Sesión"
+            // CAMBIO AQUÍ: Usa el ID correcto 'logout-link'
+            document.getElementById('logout-link').addEventListener('click', function(e) {
+                e.preventDefault(); // Evita la redirección inmediata del href
+                localStorage.removeItem('loggedInUser'); // Elimina la información del usuario logueado
+                alert('Sesión cerrada correctamente.');
+                // Aquí, redirige a tu página de bienvenida donde se elige el rol
+                window.location.href = 'paginainicio.html'; // O el nombre de tu archivo de bienvenida (ej. 'home.html', 'seleccionar_rol.html')
+            });
+        });
+    </script>
+</body>
+</html>

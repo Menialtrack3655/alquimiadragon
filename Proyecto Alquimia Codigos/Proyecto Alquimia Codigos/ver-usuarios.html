@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Usuarios Registrados</title>
+    <link rel="stylesheet" href="estilos.css" />
+</head>
+<body class="bodyusuarios">
+    <h2 style="text-align: center; margin-top: 30px;">Usuarios Registrados</h2>
+    <table class="tabla-usuarios" id="tablaUsuarios">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Usuario</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            </tbody>
+    </table>
+
+    <a href="index.html" class="volver">← Volver al Inicio</a>
+
+    <div id="modalEditarUsuario" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar-modal">&times;</span>
+            <h3>Editar Usuario</h3>
+            <form id="formEditarUsuario" class="formulario-modal">
+                <input type="hidden" id="editUsuarioIndex">
+                <label for="editNombre">Nombre:</label>
+                <input type="text" id="editNombre" required>
+
+                <label for="editUsuario">Usuario:</label>
+                <input type="text" id="editUsuario">
+
+                <label for="editCorreo">Correo:</label>
+                <input type="email" id="editCorreo" required>
+
+                <label for="editPassword">Nueva Contraseña (opcional):</label>
+                <input type="password" id="editPassword" placeholder="Dejar en blanco para no cambiar">
+
+                <label for="editRol">Rol:</label>
+                <select id="editRol">
+                    <option value="Usuario">Usuario</option>
+                    <option value="Administrador">Administrador</option>
+                </select>
+
+                <button type="submit" class="button">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Obtenemos la referencia al cuerpo de la tabla donde se insertarán los usuarios
+        const tabla = document.getElementById("tablaUsuarios").querySelector("tbody");
+        const modal = document.getElementById("modalEditarUsuario");
+        const cerrarModalBtn = document.querySelector(".cerrar-modal");
+        const formEditarUsuario = document.getElementById("formEditarUsuario");
+        const editUsuarioIndex = document.getElementById("editUsuarioIndex");
+        const editNombre = document.getElementById("editNombre");
+        const editUsuario = document.getElementById("editUsuario");
+        const editCorreo = document.getElementById("editCorreo");
+        const editPassword = document.getElementById("editPassword");
+        const editRol = document.getElementById("editRol");
+
+        // Función para cargar y mostrar los usuarios en la tabla
+        function cargarUsuarios() {
+            const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+            tabla.innerHTML = ""; // Limpia cualquier contenido previo en la tabla
+
+            if (usuarios.length === 0) {
+                tabla.innerHTML = `<tr><td colspan="5" style="text-align: center; padding: 20px; color: #aaa;">No hay usuarios registrados.</td></tr>`;
+                return;
+            }
+
+            usuarios.forEach((usuario, index) => {
+                const fila = document.createElement("tr");
+                fila.innerHTML = `
+                    <td data-label="Nombre">${usuario.nombre || 'N/A'}</td>
+                    <td data-label="Usuario">${usuario.usuario || 'N/A'}</td>
+                    <td data-label="Correo">${usuario.email || 'N/A'}</td>
+                    <td data-label="Rol">${usuario.rol || 'Usuario'}</td>
+                    <td data-label="Acciones">
+                        <button class="modificar-btn" onclick="abrirModalEditar(${index})">Modificar</button>
+                        <button class="eliminar-btn" onclick="eliminarUsuario(${index})">Eliminar</button>
+                    </td>
+                `;
+                tabla.appendChild(fila);
+            });
+        }
+
+        // Función para eliminar un usuario
+        function eliminarUsuario(index) {
+            const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+            if (confirm("¿Seguro que deseas eliminar este usuario?")) {
+                usuarios.splice(index, 1);
+                localStorage.setItem("usuarios", JSON.stringify(usuarios));
+                cargarUsuarios();
+            }
+        }
+
+        // Función para abrir el modal de edición y precargar los datos
+        function abrirModalEditar(index) {
+            const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+            const usuarioAEditar = usuarios[index];
+
+            editUsuarioIndex.value = index; // Guarda el índice del usuario que se está editando
+            editNombre.value = usuarioAEditar.nombre || '';
+            editUsuario.value = usuarioAEditar.usuario || ''; // Asumiendo que existe un campo 'usuario'
+            editCorreo.value = usuarioAEditar.email || '';
+            editPassword.value = ''; // La contraseña nunca se precarga por seguridad
+            editRol.value = usuarioAEditar.rol || 'Usuario';
+
+            modal.style.display = "block"; // Muestra el modal
+        }
+
+        // Función para cerrar el modal
+        cerrarModalBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Cierra el modal si se hace clic fuera de su contenido
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Manejar el envío del formulario de edición
+        formEditarUsuario.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            const index = parseInt(editUsuarioIndex.value);
+            let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+            if (index >= 0 && index < usuarios.length) {
+                const usuarioActualizado = {
+                    nombre: editNombre.value.trim(),
+                    usuario: editUsuario.value.trim(), // Asumiendo que existe
+                    email: editCorreo.value.trim(),
+                    rol: editRol.value,
+                    // Mantener la contraseña actual si el campo de nueva contraseña está vacío
+                    password: editPassword.value.trim() !== '' ? editPassword.value.trim() : usuarios[index].password
+                };
+
+                // Validar que el nuevo correo no exista ya para otro usuario (excepto el que se está editando)
+                const correoYaExiste = usuarios.some((u, i) => u.email === usuarioActualizado.email && i !== index);
+                if (correoYaExiste) {
+                    alert("Este correo ya está registrado por otro usuario.");
+                    return;
+                }
+
+                usuarios[index] = usuarioActualizado;
+                localStorage.setItem("usuarios", JSON.stringify(usuarios));
+                alert("Usuario actualizado con éxito.");
+                modal.style.display = "none"; // Cierra el modal
+                cargarUsuarios(); // Recarga la tabla
+            }
+        });
+
+        // Carga los usuarios cuando el contenido de la página se ha cargado completamente
+        document.addEventListener("DOMContentLoaded", cargarUsuarios);
+    </script>
+</body>
+</html>

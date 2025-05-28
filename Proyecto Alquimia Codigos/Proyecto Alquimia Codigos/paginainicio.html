@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Bienvenido - Alquimia Dragon</title> <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+    <div class="main-wrapper">
+        <div class="left-column">
+            <div class="welcome-content">
+                <h1>Bienvenido a Alquimia Dragon</h1>
+                <div class="buttons">
+                    <a href="log-in.html" class="btn">Continuar como Usuario</a>
+                    <a href="loginadmon.html" class="btn">Continuar como Administrador</a> </div>
+            </div>
+        </div>
+        <div class="right-column">
+            </div>
+    </div>
+
+    <script>
+        // Verificar si ya hay un usuario logueado
+        const usuario = localStorage.getItem("usuarioLogueado");
+
+        if (usuario) {
+            // Mostrar un mensaje de bienvenida o redirigir
+            const welcomeContent = document.querySelector(".welcome-content");
+
+            // Opción 1: Mostrar saludo en vez de botones
+            welcomeContent.innerHTML = `
+                <h1>Hola, ${usuario}</h1>
+                <p>Ya estás logueado.</p>
+                <div class="buttons">
+                    <a href="admin-dashboard.html" class="btn">Ir al Panel</a>
+                    <button class="btn" id="cerrarSesion">Cerrar sesión</button>
+                </div>
+            `;
+
+            // Lógica para cerrar sesión
+            document.getElementById("cerrarSesion").addEventListener("click", () => {
+                localStorage.removeItem("usuarioLogueado");
+                window.location.href = "gracias.html"; // Onde redirige después de cerrar sesión
+            });
+        }
+    </script>
+</body>
+</html>

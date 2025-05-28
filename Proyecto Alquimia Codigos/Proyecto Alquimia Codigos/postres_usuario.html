@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postres - La Sala de los Maestros</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="bodypostres-usuario">
+    <header class="user-header">
+        <div class="user-info">
+            <span class="header-text">Usuario: <strong id="user-name-display">Cargando...</strong></span>
+            <span class="header-text">Mesa Registrada: <strong id="user-table-display">Cargando...</strong></span>
+            <span class="header-text">Jugadores: <strong id="user-players-display">Cargando...</strong></span>
+        </div>
+        <nav class="user-nav">
+            <ul>
+                <li><a href="#" id="change-user-link">Cambiar de Usuario</a></li>
+                <li><a href="index.html" id="logout-link">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="catalog-content">
+        <h2>Nuestro Catálogo de Postres</h2>
+        <p>Elige el postre perfecto para acompañar tu café.</p>
+
+        <form id="dessertOrderForm">
+            <div class="dessert-list" id="dessertList">
+                </div>
+            <button type="submit" class="button">Agregar al Pedido</button>
+        </form>
+
+        <div id="message" class="order-message" style="display: none;"></div>
+
+        <div class="text-center margin-top-large">
+            <a href="perfil.html" class="button">Regresar a Mi Perfil</a>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dessertListDiv = document.getElementById('dessertList');
+            const dessertOrderForm = document.getElementById('dessertOrderForm');
+            const messageDiv = document.getElementById('message');
+
+            // Cargar datos del usuario logueado
+            const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+            if (!loggedInUser) {
+                alert("No se ha iniciado sesión. Redirigiendo al login.");
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Actualizar información del usuario en el encabezado
+            document.getElementById('user-name-display').textContent = loggedInUser.nombre || 'No disponible';
+            document.getElementById('user-table-display').textContent = loggedInUser.table || 'No registrada';
+            document.getElementById('user-players-display').textContent = loggedInUser.players || '0';
+
+            // Datos de ejemplo de postres (en una aplicación real, esto vendría de un backend)
+            const desserts = [
+                { id: 'tarta-limon', name: 'Tarta de Limón', price: 6.00, description: 'Fresca y ácida tarta de limón.' },
+                { id: 'brownie-chocolate', name: 'Brownie de Chocolate', price: 5.50, description: 'Denso y rico brownie con trozos de chocolate.' },
+                { id: 'cheesecake-frutos', name: 'Cheesecake de Frutos Rojos', price: 6.50, description: 'Cremoso cheesecake con coulis de frutos rojos.' },
+                { id: 'muffin-platano', name: 'Muffin de Plátano', price: 4.00, description: 'Muffin casero con trozos de plátano.' },
+                { id: 'galleta-avena', name: 'Galleta de Avena y Pasas', price: 3.00, description: 'Galleta suave y masticable con avena y pasas.' }
+            ];
+
+            function renderDessertItems() {
+                dessertListDiv.innerHTML = '';
+                desserts.forEach(dessert => {
+                    const dessertCard = document.createElement('div');
+                    dessertCard.classList.add('catalog-item');
+                    dessertCard.innerHTML = `
+                        <h3>${dessert.name}</h3>
+                        <p class="item-description">${dessert.description}</p>
+                        <p class="item-price">$${dessert.price.toFixed(2)}</p>
+                        <div class="item-quantity">
+                            <label for="qty-${dessert.id}">Cantidad:</label>
+                            <input type="number" id="qty-${dessert.id}" name="dessert-${dessert.id}" min="0" value="0">
+                        </div>
+                    `;
+                    dessertListDiv.appendChild(dessertCard);
+                });
+            }
+
+            function displayMessage(msg, type) {
+                messageDiv.textContent = msg;
+                messageDiv.className = 'order-message'; // Reiniciar clases
+                messageDiv.classList.add(type);
+                messageDiv.style.display = 'block';
+                setTimeout(() => messageDiv.style.display = 'none', 5000);
+            }
+
+            dessertOrderForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const order = [];
+                let totalItems = 0;
+
+                desserts.forEach(dessert => {
+                    const quantityInput = document.getElementById(`qty-${dessert.id}`);
+                    const quantity = parseInt(quantityInput.value);
+
+                    if (quantity > 0) {
+                        order.push({
+                            id: dessert.id,
+                            name: dessert.name,
+                            price: dessert.price,
+                            quantity: quantity
+                        });
+                        totalItems += quantity;
+                    }
+                });
+
+                if (order.length > 0) {
+                    // En una aplicación real, enviarías esta orden a un servidor backend.
+                    // Aquí, la guardaremos en localStorage para demostración.
+                    const userDessertOrderKey = 'dessertOrder_' + loggedInUser.email;
+                    localStorage.setItem(userDessertOrderKey, JSON.stringify(order));
+                    displayMessage(`¡Pedido de postres (${totalItems} ítems) agregado!`, 'success');
+                    // Opcionalmente, restablecer cantidades después de ordenar
+                    desserts.forEach(dessert => {
+                        document.getElementById(`qty-${dessert.id}`).value = 0;
+                    });
+                } else {
+                    displayMessage('Por favor, selecciona al menos un postre y su cantidad.', 'error');
+                }
+            });
+
+            // Funcionalidad "Cambiar de Usuario"
+            document.getElementById('change-user-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Para cambiar de usuario, por favor cierra la sesión actual.');
+                window.location.href = 'login.html';
+            });
+
+            // Funcionalidad "Cerrar Sesión"
+            document.getElementById('logout-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('loggedInUser'); // Borrar datos del usuario logueado
+                alert('Sesión cerrada correctamente.');
+                window.location.href = 'index.html';
+            });
+
+            renderDessertItems();
+        });
+    </script>
+</body>
+</html>

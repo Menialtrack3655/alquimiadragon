@@ -1,0 +1,4470 @@
+/* ==== estilos.css (Archivo CSS Combinado) ==== */
+
+/* --- 1. DECLARACIÓN DE FUENTES (GLOBAL) --- */
+
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+@font-face {
+    font-family: 'GOT';
+    src: url('game-of-thrones fonts/Game of Thrones.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* --- 2. RESET Y ESTILOS BASE (GLOBAL) --- */
+/* Estas reglas se aplican a *todas* las páginas en tu sitio */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%; /* Asegura que html siempre ocupe el 100% */
+}
+
+body {
+    font-family: 'GOT', 'Segoe UI', sans-serif;
+    color: white; /* Color de texto por defecto para todo el sitio */
+    background-color: #2b2b2b; /* Fondo oscuro por defecto para todo el sitio */
+    /* NO pongas 'display: flex', 'justify-content', 'align-items', 'min-height: 100vh' aquí.
+       Esos deben ir en los selectores específicos de cada página (body.clase-pagina). */
+}
+
+/* --- 3. ESTILOS ESPECÍFICOS PARA LA PÁGINA DE LOGIN DE ADMINISTRADOR (log-in.html) --- */
+/* TODAS estas reglas deben comenzar con 'body.admin-login-page' */
+body.admin-login-page {
+    display: flex; /* Para centrar el contenedor del login */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Para que ocupe toda la altura y el centrado funcione */
+    overflow: hidden; /* Evita scrollbars si el contenido es más pequeño */
+    /* Puedes sobrescribir el color de texto o fondo del body aquí si es diferente para el login */
+    color: #333; /* El color de texto de tu formulario de login */
+}
+
+body.admin-login-page .container {
+    /* Estilos del contenedor principal del login */
+    display: flex;
+    background-color: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    max-width: 1200px;
+    width: 90%;
+    min-height: 600px;
+}
+
+body.admin-login-page .left-section {
+    /* Estilos de la sección izquierda del login */
+    flex: 1;
+    min-width: 350px;
+    background-image: url('imagenes/targerian.png'); /* Ruta de la imagen del login */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+body.admin-login-page .left-section::before {
+    /* Overlay */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+}
+body.admin-login-page .left-section > * { z-index: 1; position: relative; } /* Asegura que el contenido esté encima */
+
+body.admin-login-page .left-section .logo { /* Logo dentro de la sección izquierda */
+    width: 120px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+}
+/* ... y todas las demás reglas para .brand, .slogan, .description dentro de .left-section del login */
+
+body.admin-login-page .right-section {
+    /* Estilos de la sección derecha del login (formulario) */
+    flex: 1;
+    min-width: 400px;
+    padding: 60px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: #333; /* Color de texto específico para el formulario */
+    background-color: #fff;
+}
+/* ... y todas las demás reglas para h3, h2, form, label, input, button, #errorMessage dentro de .right-section del login */
+
+/* Media Queries para Login */
+@media (max-width: 900px) {
+    body.admin-login-page .container { /* Reglas responsivas del login */
+        flex-direction: column;
+        max-width: 500px;
+        min-height: unset;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    /* ... y todas las demás reglas responsivas con 'body.admin-login-page' prefijado */
+}
+/* ... más media queries para login ... */
+
+
+/* --- 4. ESTILOS ESPECÍFICOS PARA LA PÁGINA PRINCIPAL (index.html) --- */
+/* TODAS estas reglas deben comenzar con 'body.bodyindex' */
+
+body.bodyindex {
+    /* Aquí van los estilos específicos para el body de tu index.html */
+    /* Por ejemplo, si tu index no tiene un centrado flexbox en el body, NO LO PONGAS AQUÍ */
+    /* Simplemente, si el body del index tiene un fondo o un padding específico, va aquí */
+    min-height: 100vh; /* Asegura que el body ocupe toda la altura para que el scroll funcione */
+    overflow-y: auto; /* Permite scroll si el contenido es largo */
+}
+
+body.bodyindex .top-nav {
+    /* Estilos de la barra de navegación de tu index.html */
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 25px;
+    position: fixed; /* O sticky, si lo prefieres */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+body.bodyindex .top-nav a {
+    color: #cfa284;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+body.bodyindex .top-nav a:hover {
+    background-color: #cfa284;
+    color: #2b2b2b;
+}
+
+body.bodyindex .hero {
+    /* Estilos de la sección hero de tu index.html */
+    min-height: 70vh; /* o un valor fijo, dependiendo de tu diseño */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: url('imagenes/fondo_hero_index.jpg'); /* **REVISA RUTA DE ESTA IMAGEN** */
+    background-size: cover;
+    background-position: center;
+    padding-top: 100px; /* Espacio para el nav fijo */
+    position: relative;
+}
+body.bodyindex .hero::before { /* Overlay para el hero */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+}
+body.bodyindex .hero > * { z-index: 1; position: relative; } /* Contenido del hero encima del overlay */
+
+body.bodyindex .hero-logo {
+    width: 180px;
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 8px rgba(0,0,0,0.7));
+}
+body.bodyindex .branding h1 {
+    font-size: 4.5rem;
+    color: #cfa284;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.8);
+}
+body.bodyindex .branding p {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+body.bodyindex .actions {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* Permite que los botones se envuelvan en pantallas pequeñas */
+    justify-content: center;
+}
+body.bodyindex .button { /* Ajuste el nombre a 'button' en lugar de 'btn' para diferenciarlos si quieres */
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #6a4d3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-family: 'GOT', sans-serif;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+body.bodyindex .button:hover {
+    background-color: #8a6650;
+    transform: translateY(-2px);
+}
+
+
+body.bodyindex .dashboard {
+    /* Estilos del dashboard (inventario) */
+    padding: 60px 20px;
+    text-align: center;
+}
+body.bodyindex .dashboard h2 {
+    font-size: 3rem;
+    color: #cfa284;
+    margin-bottom: 40px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+body.bodyindex .cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan */
+}
+body.bodyindex .cards-container .card1,
+body.bodyindex .cards-container .card2 {
+    background-color: #1a1a1a;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    text-align: center;
+    max-width: 350px;
+    flex: 1; /* Permite que las tarjetas crezcan un poco */
+    min-width: 280px; /* Ancho mínimo para que no se aprieten demasiado */
+}
+body.bodyindex .cards-container img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+body.bodyindex .cards-container h3 {
+    font-size: 2rem;
+    color: #cfa284;
+    margin-bottom: 15px;
+}
+body.bodyindex .cards-container p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+body.bodyindex .cards-container button {
+    background-color: #cfa284;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+body.bodyindex .cards-container button:hover {
+    background-color: #e0b496;
+    transform: translateY(-2px);
+}
+
+/* Estilos para las secciones de formulario (Registro Admin, Registro User, Salir) */
+body.bodyindex section {
+    padding: 60px 20px;
+    text-align: center;
+    background-color: #1a1a1a;
+    margin-top: 40px; /* Espacio entre secciones */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+body.bodyindex section:last-child {
+    margin-bottom: 0;
+}
+body.bodyindex section h2 {
+    font-size: 2.5rem;
+    color: #cfa284;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+body.bodyindex .formulario {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #333;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+body.bodyindex .formulario label {
+    font-size: 1.1rem;
+    color: #cfa284;
+    text-align: left;
+    margin-bottom: 5px;
+}
+body.bodyindex .formulario input[type="text"],
+body.bodyindex .formulario input[type="email"],
+body.bodyindex .formulario input[type="password"] {
+    padding: 12px;
+    border: 1px solid #555;
+    border-radius: 8px;
+    background-color: #444;
+    color: white;
+    font-size: 1rem;
+}
+body.bodyindex .formulario input::placeholder {
+    color: #bbb;
+}
+body.bodyindex .formulario input:focus {
+    outline: none;
+    border-color: #cfa284;
+    box-shadow: 0 0 8px rgba(207, 162, 132, 0.6);
+}
+body.bodyindex .formulario button[type="submit"] {
+    background-color: #cfa284;
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-family: 'GOT', sans-serif;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+body.bodyindex .formulario button[type="submit"]:hover {
+    background-color: #e0b496;
+    transform: translateY(-3px);
+}
+body.bodyindex #salir p {
+    font-size: 1.2rem;
+    color: #bbb;
+}
+
+
+/* --- Media Queries para la Página Principal (index.html) --- */
+@media (max-width: 768px) {
+    body.bodyindex .top-nav {
+        flex-direction: column;
+        padding: 10px 15px;
+        align-items: center;
+        gap: 10px;
+    }
+    body.bodyindex .hero {
+        min-height: 50vh;
+        padding-top: 80px;
+    }
+    body.bodyindex .branding h1 {
+        font-size: 3.5rem;
+    }
+    body.bodyindex .branding p {
+        font-size: 1.2rem;
+    }
+    body.bodyindex .actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+    body.bodyindex .button {
+        width: 80%; /* Botones más anchos en móvil */
+        padding: 12px 20px;
+    }
+    body.bodyindex .dashboard h2, body.bodyindex section h2 {
+        font-size: 2rem;
+    }
+    body.bodyindex .cards-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    body.bodyindex .cards-container .card1,
+    body.bodyindex .cards-container .card2 {
+        width: 90%;
+        max-width: 400px; /* Para móviles */
+    }
+    body.bodyindex section {
+        padding: 40px 15px;
+    }
+    body.bodyindex .formulario {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    body.bodyindex .branding h1 {
+        font-size: 2.8rem;
+    }
+    body.bodyindex .branding p {
+        font-size: 1rem;
+    }
+    body.bodyindex .button {
+        font-size: 1rem;
+        padding: 10px 15px;
+    }
+    body.bodyindex .top-nav a {
+        font-size: 1rem;
+        padding: 5px;
+    }
+    body.bodyindex .dashboard h2, body.bodyindex section h2 {
+        font-size: 1.8rem;
+    }
+    body.bodyindex .cards-container h3 {
+        font-size: 1.5rem;
+    }
+    body.bodyindex .cards-container p {
+        font-size: 0.9rem;
+    }
+    body.bodyindex .cards-container button {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+    body.bodyindex .formulario input {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    body.bodyindex .formulario button {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==== estilos.css (para reservas.html) ==== */
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+
+bodyreservas {
+    font-family: Arial, sans-serif;
+    background-color: #2b2b2b; /* CAMBIO: Un gris un tono más claro */
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.contenedor {
+    padding: 20px;
+    border-bottom: 1px solid #333;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #cfa284;
+}
+
+.formulario-agenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #252525;
+    border-radius: 8px;
+}
+
+.formulario-agenda input,
+.formulario-agenda select,
+.formulario-agenda button {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.formulario-agenda button {
+    background-color: #cfa284;
+    color: white;
+    cursor: pointer;
+}
+
+.formulario-agenda button:hover {
+    background-color: #e0b496;
+}
+
+.mesas {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+}
+
+.mesa {
+    background-color: #333;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.registro-contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.registro {
+    background-color: #1c1c1c;
+    padding: 20px;
+    border-radius: 10px;
+    flex: 1;
+    min-width: 250px;
+}
+
+.registro h3 {
+    margin-bottom: 10px;
+}
+
+.registro input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+}
+
+.registro button {
+    background-color: #cfa284;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.registro button:hover {
+    background-color: #e0b496;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==== log-in.css (Archivo de Estilos para la Página de Iniciar Sesión) ==== */
+
+/* --- Declaración de la fuente personalizada --- */
+/* Asegúrate de que la ruta 'game-of-thrones fonts/Game of Thrones.ttf' sea correcta */
+
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+@font-face {
+    font-family: 'GOT';
+    src: url('game-of-thrones fonts/Game of Thrones.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* --- Estilos Generales y Resets --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%; /* Asegura que el HTML y el body ocupen toda la altura de la ventana */
+    overflow: hidden; /* Evita barras de desplazamiento no deseadas */
+}
+
+/* --- Estilos del Body (Página de Login) --- */
+/* Cambiamos 'bodylogin1' a una clase para aplicar el estilo al <body> */
+body.bodylogin1 {
+    font-family: 'GOT', 'Segoe UI', sans-serif; /* Aplica la fuente GOT y fallback */
+    background-color: #2b2b2b; /* Fondo oscuro que coincide con tu tema */
+    color: white; /* Color de texto por defecto */
+    display: flex; /* Usa flexbox para centrar el contenido principal */
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- Contenedor Principal (que contiene ambas secciones) --- */
+.container {
+    display: flex;
+    height: 90vh; /* Ocupa el 90% de la altura de la ventana, dejando márgenes */
+    max-width: 1200px; /* Ancho máximo para el contenedor completo */
+    width: 95%; /* Ancho responsivo */
+    border-radius: 20px; /* Esquinas redondeadas para todo el contenedor */
+    overflow: hidden; /* Importante para que las esquinas redondeadas se vean bien */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6); /* Sombra profunda para el efecto 3D */
+}
+
+/* --- Sección Izquierda (Fondo y Contenido Informativo) --- */
+.left-section {
+    flex: 1; /* Ocupa la mitad del espacio disponible */
+    background-image: url('fondo-cafe.jpg'); /* ¡IMPORTANTE: Reemplaza con la ruta a tu imagen de fondo! */
+    background-size: cover; /* Cubre toda la sección */
+    background-position: center; /* Centra la imagen */
+    color: white; /* Color de texto para esta sección */
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative; /* Necesario para la superposición (overlay) */
+    min-width: 300px; /* Ancho mínimo para esta sección */
+}
+
+/* Superposición semitransparente para mejorar la lectura del texto en la imagen de fondo */
+.left-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay negro semitransparente */
+    z-index: 1; /* Asegura que esté debajo del contenido */
+}
+
+/* Asegura que todo el contenido dentro de left-section esté por encima del overlay */
+.left-section > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* --- Estilos del Logo (en la sección izquierda) --- */
+.logo {
+    width: 100px; /* Tamaño del logo: aumentado de 80px */
+    height: auto; /* Mantiene la proporción */
+    margin-bottom: 25px; /* Espacio debajo del logo: aumentado de 20px */
+    object-fit: contain; /* Asegura que el logo se ajuste dentro de sus dimensiones */
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.7)); /* Sombra para el logo */
+}
+
+.brand {
+    font-family: 'GOT', sans-serif; /* Fuente GOT para el nombre de la marca */
+    font-size: 2.5rem; /* Tamaño de la fuente: aumentado de 1.8rem */
+    margin-bottom: 20px; /* Espacio debajo de la marca: reducido de 30px */
+    color: #cfa284; /* Color de acento de tu tema */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra para el texto */
+}
+
+.slogan {
+    font-size: 2.2rem; /* Tamaño de la fuente: aumentado de 2rem */
+    font-weight: bold;
+    margin-bottom: 15px; /* Espacio debajo del eslogan: aumentado de 10px */
+    line-height: 1.2;
+}
+
+.description {
+    max-width: 350px; /* Ancho máximo para la descripción: aumentado de 300px */
+    font-size: 1rem; /* Tamaño de la fuente: aumentado de 0.9rem */
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+/* --- Sección Derecha (Formulario de Login) --- */
+.right-section {
+    flex: 1; /* Ocupa la otra mitad del espacio disponible */
+    background-color: #1a1a1a; /* Fondo oscuro que coincide con tu tema: cambiado de white */
+    padding: 60px 50px; /* Espaciado interno generoso: aumentado de 40px */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Las propiedades border-top-left-radius y border-bottom-left-radius
+       se eliminan aquí porque el redondeo se aplica al .container con overflow: hidden; */
+    min-width: 350px; /* Ancho mínimo para esta sección */
+}
+
+.right-section h3 {
+    font-size: 1.2rem; /* Tamaño de la fuente: aumentado de 1rem */
+    color: #cfa284; /* Color de acento: cambiado de #555 */
+    margin-bottom: 10px; /* Espacio debajo de h3: aumentado de 5px */
+}
+
+.right-section h2 {
+    font-family: 'GOT', sans-serif; /* Fuente GOT para el título */
+    font-size: 2rem; /* Tamaño de la fuente: aumentado de 1.5rem */
+    margin-bottom: 40px; /* Espacio debajo de h2: aumentado de 30px */
+    color: white; /* Color de texto blanco */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espacio entre los elementos del formulario (labels, inputs) */
+}
+
+label {
+    font-size: 1rem; /* Tamaño de la fuente: aumentado de 0.9rem */
+    margin-bottom: 5px;
+    color: #eee; /* Color de texto para las etiquetas: cambiado de #444 */
+}
+
+input {
+    padding: 15px; /* Relleno interno: aumentado de 10px */
+    margin-bottom: 20px;
+    border: 1px solid #333; /* Borde oscuro: cambiado de #ccc */
+    border-radius: 8px; /* Esquinas redondeadas: aumentado de 6px */
+    font-size: 1.1rem; /* Tamaño de la fuente: aumentado de 1rem */
+    background-color: #292929; /* Fondo oscuro para los inputs */
+    color: white; /* Color del texto dentro del input */
+}
+
+input::placeholder {
+    color: #aaa; /* Color del texto de marcador de posición */
+}
+
+button[type="submit"] {
+    padding: 15px; /* Relleno interno: aumentado de 12px */
+    background-color: #cfa284; /* Color de acento para el botón de envío: cambiado de #000 */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem; /* Tamaño de la fuente: aumentado de 1rem */
+    font-family: 'GOT', sans-serif; /* Fuente GOT para el botón */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones suaves */
+    margin-top: 20px; /* Espacio arriba del botón */
+}
+
+button[type="submit"]:hover {
+    background-color: #e0b496; /* Color de acento más claro al pasar el ratón: cambiado de #333 */
+    transform: translateY(-2px); /* Pequeño efecto de elevación */
+}
+
+.register {
+    margin-top: 30px; /* Espacio arriba del texto de registro: aumentado de 20px */
+    font-size: 1rem; /* Tamaño de la fuente: aumentado de 0.9rem */
+    color: #aaa; /* Color de texto para el mensaje de registro: cambiado de #555 */
+}
+
+.register a {
+    color: #cfa284; /* Color de acento para el enlace de registro: cambiado de black */
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.register a:hover {
+    color: #e0b496; /* Color de acento más claro al pasar el ratón */
+    text-decoration: underline;
+}
+
+/* --- Media Queries para Responsividad --- */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column; /* Apila las secciones verticalmente en pantallas medianas */
+        height: auto; /* Permite que la altura se ajuste al contenido */
+        min-height: 100vh; /* Asegura que al menos ocupe toda la altura */
+        border-radius: 0; /* Elimina las esquinas redondeadas en pantallas pequeñas */
+    }
+
+    .left-section {
+        min-height: 250px; /* Altura mínima para la sección izquierda */
+        padding: 30px;
+        min-width: unset; /* Elimina la restricción de ancho mínimo */
+    }
+
+    .right-section {
+        border-radius: 0; /* Elimina las esquinas redondeadas */
+        padding: 40px 30px;
+        min-width: unset; /* Elimina la restricción de ancho mínimo */
+    }
+
+    .logo {
+        width: 80px; /* Tamaño ajustado para pantallas medianas */
+        margin-bottom: 15px;
+    }
+
+    .brand {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+
+    .slogan {
+        font-size: 1.8rem;
+    }
+
+    .description {
+        font-size: 0.9rem;
+    }
+
+    .right-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+
+    .right-section h3 {
+        font-size: 1.1rem;
+    }
+
+    input {
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    button[type="submit"] {
+        padding: 12px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .left-section {
+        min-height: 200px;
+        padding: 20px;
+    }
+    .logo {
+        width: 70px;
+    }
+    .brand {
+        font-size: 1.8rem;
+    }
+    .slogan {
+        font-size: 1.5rem;
+    }
+    .description {
+        display: none; /* Oculta la descripción en pantallas muy pequeñas si es demasiado estrecho */
+    }
+    .right-section {
+        padding: 30px 20px;
+    }
+    .right-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 25px;
+    }
+    .right-section h3 {
+        font-size: 1rem;
+    }
+    label, input, button {
+        font-size: 0.95rem;
+        padding: 10px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==== productos.css ==== */
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: white;
+}
+
+.encabezado {
+    text-align: center;
+    padding: 20px;
+    background-color: #000;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #333;
+}
+
+.grid-productos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.producto {
+    background-color: #2c2c2c;
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.producto.activo {
+    border-color: red;
+}
+
+.producto img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.producto h2 {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 8px 0;
+}
+
+.boton-editar, .boton-eliminar, .boton-agregar {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.boton-agregar {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #6a4d3c;
+}
+
+.boton-agregar:hover {
+    background-color: #8a6650;
+}
+
+.orden-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100%;
+    background-color: #222;
+    padding: 20px;
+    border-left: 2px solid #333;
+}
+
+.orden-panel h2 {
+    margin-bottom: 20px;
+}
+
+.estado p {
+    margin: 10px 0;
+}
+
+.etiqueta {
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.preparando {
+    background-color: orange;
+    color: black;
+}
+
+.estados {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.estados li {
+    margin: 10px 0;
+    background-color: #444;
+    padding: 8px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* login admon*/
+/* ==== estilos.css (Este es tu archivo CSS combinado) ==== */
+
+/* --- Declaración de la fuente personalizada --- */
+
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+
+@font-face {
+    font-family: 'GOT';
+    src: url('game-of-thrones fonts/Game of Thrones.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* --- ESTILOS GENERALES/GLOBALES (Aplicados a todas las páginas) --- */
+/* Estas reglas no deberían tener 'body.admin-login-page' prefijado */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Reglas generales para el body (siempre se aplicarán) */
+body {
+    font-family: 'GOT', 'Segoe UI', sans-serif;
+    color: white; /* Color de texto por defecto global */
+    background-color: #2b2b2b; /* Fondo oscuro global */
+    /* NO PONGAS display:flex, justify-content, align-items, height:100% aquí si quieres que otras páginas no se centren */
+}
+
+/* Estilos para botones (si son globales) */
+.btn { /* Esto es para los botones de tu página de bienvenida, por ejemplo */
+    display: inline-block;
+    padding: 18px 35px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.3rem;
+    font-family: 'GOT', sans-serif;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+/* Colores de los botones de la bienvenida, por ejemplo */
+.btn:nth-child(1) { background-color: #6a4d3c; }
+.btn:nth-child(1):hover { background-color: #8a6650; }
+.btn:nth-child(2), #cerrarSesion { background-color: #cfa284; }
+.btn:nth-child(2):hover, #cerrarSesion:hover { background-color: #e0b496; }
+
+
+/* --- ESTILOS ESPECÍFICOS DE LA PÁGINA DE BIENVENIDA (index.html) --- */
+/* Si tu página de bienvenida usa un 'main-wrapper', sus estilos irían aquí */
+/* Estas reglas NO deben tener 'body.admin-login-page' prefijado */
+.main-wrapper { /* Clase de la página de bienvenida */
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.left-column { /* Clase de la página de bienvenida */
+    flex: 1;
+    max-width: 550px;
+    background-color: #1a1a1a;
+    padding: 60px 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    min-height: 450px;
+    margin: 10px;
+}
+/* ... y todas las demás reglas para .right-column, h1, p, .welcome-content, etc.
+   que son para tu página de bienvenida.
+   Asegúrate de que no tengan el prefijo 'body.admin-login-page'
+*/
+
+
+/* --- ESTILOS ESPECÍFICOS DE LA PÁGINA DE LOGIN DE ADMINISTRADOR (log-in.html) --- */
+/* ¡TODAS ESTAS REGLAS COMIENZAN CON 'body.admin-login-page' ! */
+
+body.admin-login-page { /* Centrado y tamaño del viewport solo para esta página */
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Evita barras de desplazamiento */
+    /* background-color: #2b2b2b; ya está en el body general, puedes quitarlo de aquí si es el mismo */
+}
+
+body.admin-login-page .container {
+    display: flex;
+    background-color: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    max-width: 1200px;
+    width: 90%;
+    min-height: 600px;
+}
+
+body.admin-login-page .left-section {
+    flex: 1;
+    min-width: 350px;
+    background-image: url('imagenes/targerian.png'); /* **REVISA RUTA** */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+body.admin-login-page .left-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+}
+
+body.admin-login-page .left-section > * {
+    position: relative;
+    z-index: 1;
+}
+
+body.admin-login-page .left-section .logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+}
+
+body.admin-login-page .left-section .brand {
+    font-size: 3.5rem;
+    color: #cfa284;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+body.admin-login-page .left-section .slogan {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+body.admin-login-page .left-section .description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 350px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+body.admin-login-page .right-section {
+    flex: 1;
+    min-width: 400px;
+    padding: 60px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: #333;
+    background-color: #fff;
+}
+
+body.admin-login-page .right-section h3 {
+    font-size: 1.5rem;
+    color: #6a4d3c;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+body.admin-login-page .right-section h2 {
+    font-size: 2.8rem;
+    color: #cfa284;
+    margin-bottom: 30px;
+    width: 100%;
+    text-align: center;
+}
+
+body.admin-login-page .right-section form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+body.admin-login-page .right-section label {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+body.admin-login-page .right-section input[type="text"],
+body.admin-login-page input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+body.admin-login-page .right-section input[type="text"]:focus,
+body.admin-login-page .right-section input[type="password"]:focus {
+    outline: none;
+    border-color: #cfa284;
+    box-shadow: 0 0 5px rgba(207, 162, 132, 0.5);
+}
+
+body.admin-login-page .right-section button[type="submit"] {
+    width: 100%;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 10px;
+    background-color: #cfa284;
+    color: white;
+    font-size: 1.4rem;
+    font-family: 'GOT', sans-serif;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+body.admin-login-page .right-section button[type="submit"]:hover {
+    background-color: #e0b496;
+    transform: translateY(-3px);
+}
+
+body.admin-login-page #errorMessage {
+    color: red;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* --- Media Queries para Responsividad (también con el prefijo) --- */
+@media (max-width: 900px) {
+    body.admin-login-page .container {
+        flex-direction: column;
+        max-width: 500px;
+        min-height: unset;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    body.admin-login-page .left-section,
+    body.admin-login-page .right-section {
+        width: 100%;
+        min-width: unset;
+        border-radius: 0;
+        min-height: 300px;
+    }
+
+    body.admin-login-page .right-section {
+        padding: 40px 30px;
+    }
+
+    body.admin-login-page .left-section .brand {
+        font-size: 3rem;
+    }
+
+    body.admin-login-page .left-section .slogan {
+        font-size: 1.5rem;
+    }
+
+    body.admin-login-page .right-section h2 {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+    }
+
+    body.admin-login-page .right-section h3 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    body.admin-login-page .left-section {
+        padding: 30px 20px;
+    }
+    body.admin-login-page .left-section .logo {
+        width: 100px;
+    }
+    body.admin-login-page .left-section .brand {
+        font-size: 2.5rem;
+    }
+    body.admin-login-page .left-section .slogan {
+        font-size: 1.2rem;
+    }
+    body.admin-login-page .left-section .description {
+        font-size: 0.9rem;
+    }
+    body.admin-login-page .right-section {
+        padding: 30px 20px;
+    }
+    body.admin-login-page .right-section h2 {
+        font-size: 1.8rem;
+    }
+    body.admin-login-page .right-section h3 {
+        font-size: 1rem;
+    }
+    body.admin-login-page .right-section input {
+        padding: 12px;
+        font-size: 1rem;
+    }
+    body.admin-login-page .right-section button {
+        padding: 12px 20px;
+        font-size: 1.2rem;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*login ver_usuarios  */
+
+/* Estilos generales para el body de ver_usuarios.html */
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+bodyusuarios {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    /*background-color: #1e1b1e; /* Fondo oscuro similar al de tu estilos.css */
+    color: white;
+    /* Añade aquí el fondo de imagen si lo deseas. Por ejemplo: */
+    background-image: url('../imagenes/logo.jpg');
+    background-size: cover; 
+    background-attachment: fixed; 
+    background-position: center center; 
+}
+
+/* Estilos generales para el body de ver_usuarios.html */
+bodyusuarios {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #1e1b1e; /* Fondo oscuro de respaldo si la imagen no carga */
+    color: white;
+
+    /* --- Añadir imagen de fondo aquí --- */
+    background-image: url('rutas/a/tu/imagen-de-fondo.jpg'); /* ¡Cambia esta ruta! */
+    background-size: cover; /* Ajusta la imagen para cubrir todo el body */
+    background-position: center center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-attachment: fixed; /* Opcional: fija la imagen de fondo mientras se hace scroll */
+    /* ---------------------------------- */
+}
+
+/* Estilos para la tabla de usuarios */
+.tabla-usuarios {
+    margin: 40px auto;
+    max-width: 800px;
+    border-collapse: collapse;
+    width: 90%;
+    background-color: rgba(34, 34, 34, 0.85); /* Fondo oscuro semi-transparente para la tabla */
+    color: white;
+    border: 1px solid #444;
+    border-radius: 8px; /* Opcional: para que la tabla tenga bordes redondeados */
+    overflow: hidden; /* Asegura que el borde redondeado se aplique al contenido */
+}
+
+.tabla-usuarios th,
+.tabla-usuarios td {
+    padding: 12px;
+    border: 1px solid #444;
+    text-align: center;
+}
+
+.tabla-usuarios th {
+    background-color: #333;
+}
+
+/* Estilos para el botón de eliminar */
+.eliminar-btn {
+    background-color: #8a6650;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.eliminar-btn:hover {
+    background-color: #cfa284;
+}
+
+/* Estilos para el enlace "Volver al Inicio" */
+.volver {
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+    color: #cfa284;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.volver:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*body ver mesas */
+/* --- 5. ESTILOS ESPECÍFICOS PARA LA PÁGINA "VER MESAS REGISTRADAS" (ver-mesas.html) --- */
+/* ALL these rules should start with 'body.bodyvermesas' */
+
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+
+body.bodyvermesas {
+    display: flex;
+    justify-content: center; /* Center the main container horizontally */
+    align-items: center; /* Center the main container vertically */
+    min-height: 100vh; /* Ensure it takes at least 100% of the viewport height */
+    padding: 20px; /* General padding around the content */
+    box-sizing: border-box; /* Include padding in the total width/height */
+    overflow-y: auto; /* Allow vertical scrolling if content is too long */
+    background-color: #1e1b1e; /* Dark background color consistent with the project */
+    color: white; /* Default text color for the page */
+    font-family: 'Segoe UI', sans-serif; /* Consistent font, adjust if you have a different general font */
+}
+
+body.bodyvermesas .mesas-registradas-contenedor {
+    background-color: #1a1a1a; /* Dark background similar to other project containers */
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6); /* Pronounced shadow for depth */
+    max-width: 800px; /* Maximum width for the container */
+    width: 95%; /* Occupies 95% of available width on larger screens */
+    text-align: center; /* Center content within the container */
+}
+
+body.bodyvermesas .mesas-registradas-contenedor h2 {
+    font-family: 'GOT', sans-serif; /* Project's thematic font */
+    font-size: 3rem; /* Large font size for the main title */
+    color: #cfa284; /* Alquimia Dragon accent color */
+    margin-bottom: 30px; /* Space below the title */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Subtle text shadow */
+}
+
+body.bodyvermesas .lista-mesas {
+    display: grid; /* Use CSS Grid for a flexible column layout */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Auto-adjusting columns */
+    gap: 20px; /* Space between table cards */
+    list-style: none; /* Remove default list bullets */
+    padding: 0; /* Remove default list padding */
+    margin: 0; /* Ensure no extra external margin on the list */
+    max-height: 400px; /* Maximum height before enabling scrolling */
+    overflow-y: auto; /* Enable vertical scrolling for the list if it's too long */
+    background-color: #292929; /* Background for the list container box */
+    border-radius: 8px;
+    border: 1px solid #333; /* Subtle border for the list container box */
+    padding: 15px; /* Internal spacing for the list container box */
+}
+
+body.bodyvermesas .lista-mesas li {
+    background-color: #3b353f; /* Background for each individual table card */
+    padding: 15px; /* Internal spacing for the cards */
+    border-radius: 8px; /* Rounded corners for the cards */
+    font-size: 1.1rem; /* Font size for text inside the card */
+    color: #eee; /* Light text color for card content */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Light shadow for the cards */
+    text-align: left; /* Align text to the left within the card */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transition for hover effects */
+}
+
+body.bodyvermesas .lista-mesas li:hover {
+    transform: translateY(-3px); /* Subtle lift effect on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* More pronounced shadow on hover */
+}
+
+body.bodyvermesas .lista-mesas li strong {
+    color: #cfa284; /* Accent color for the table name */
+    font-size: 1.2rem; /* Slightly larger font size for the name */
+    display: block; /* Makes the name take its own line */
+    margin-bottom: 5px; /* Space below the table name */
+}
+
+body.bodyvermesas .mensaje-vacio {
+    text-align: center; /* Center the message */
+    color: #aaa; /* Faint text color */
+    font-style: italic; /* Italic message */
+    font-size: 1.2rem; /* Font size for the message */
+    padding: 20px; /* Spacing around the message */
+    grid-column: 1 / -1; /* Makes it span all columns in the grid */
+}
+
+/* Specific adjustment for the "Regresar al Inicio" button on ver-mesas.html */
+/* The general button style is taken from the globally defined '.button' class. */
+body.bodyvermesas .button {
+    margin-top: 30px; /* Ensures good spacing above the button */
+    /* No need to repeat background-color, color, padding, etc., here,
+       as they are already defined in the general '.button' class. */
+}
+
+/* Media Queries for the "View Registered Tables" page (responsiveness) */
+@media (max-width: 600px) {
+    body.bodyvermesas {
+        padding: 15px; /* Reduce padding on small screens */
+    }
+    body.bodyvermesas .mesas-registradas-contenedor {
+        padding: 30px 20px; /* Reduce internal padding of the container */
+        border-radius: 0; /* Optional: Remove rounded corners on mobile */
+        box-shadow: none; /* Optional: Remove shadow on mobile for a simpler look */
+    }
+    body.bodyvermesas .mesas-registradas-contenedor h2 {
+        font-size: 2.5rem; /* Adjust title size */
+        margin-bottom: 20px;
+    }
+    body.bodyvermesas .lista-mesas {
+        grid-template-columns: 1fr; /* Single column on mobile */
+        padding: 10px;
+        max-height: 300px; /* Reduced max height for the list on mobile */
+    }
+    body.bodyvermesas .lista-mesas li {
+        padding: 12px;
+        font-size: 1rem;
+    }
+    body.bodyvermesas .lista-mesas li strong {
+        font-size: 1.1rem;
+    }
+    body.bodyvermesas .button {
+        padding: 12px 25px; /* Adjust button padding */
+        font-size: 1.1rem;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*css de registrar_mesas */
+
+/* ==== estilos.css (para registrar_mesas.html - añadir/modificar en tu archivo existente) ==== */
+
+/* --- Estilos específicos para el body de registrar_mesas.html --- */
+
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+.bodyregistro {
+    background-color: #2b2b2b; /* Un gris un tono más claro como en reservas.html */
+    color: white;
+    font-family: 'GOT', 'Segoe UI', sans-serif; /* Asumiendo que también quieres tu fuente GOT aquí */
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Estilos para el contenedor principal --- */
+.contenedor {
+    max-width: 900px; /* Ancho máximo para el contenedor principal */
+    margin: 40px auto; /* Centra el contenedor y añade margen superior/inferior */
+    padding: 30px; /* Espaciado interno */
+    background-color: #1a1a1a; /* Fondo para el contenedor principal, más oscuro que el body */
+    border-radius: 16px; /* Bordes redondeados */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra para profundidad */
+}
+
+.contenedor h2 {
+    text-align: center;
+    color: #cfa284; /* Color de acento para el título */
+    margin-bottom: 30px;
+    font-family: 'GOT', sans-serif; /* Aseguramos que el título use la fuente GOT */
+    font-size: 2rem;
+}
+
+/* --- Estilos para el contenedor de los formularios de registro --- */
+.registro-contenedor {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los formularios se envuelvan en pantallas pequeñas */
+    gap: 25px; /* Espacio entre los formularios de registro */
+    justify-content: center; /* Centra los formularios horizontalmente */
+}
+
+/* --- Estilos para cada formulario de registro (Registro de Mesas, Juegos, Accesorios) --- */
+.registro {
+    background-color: #222; /* Fondo de cada formulario de registro, un gris medio */
+    padding: 25px; /* Espaciado interno de cada formulario */
+    border-radius: 12px; /* Bordes redondeados */
+    flex: 1; /* Permite que los formularios se expandan para ocupar el espacio */
+    min-width: 280px; /* Ancho mínimo para cada formulario antes de envolverse */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Sombra para cada formulario */
+    display: flex; /* Convierte cada formulario en un flex container */
+    flex-direction: column; /* Apila los elementos (h3, inputs, button) verticalmente */
+    align-items: center; /* Centra los elementos horizontalmente dentro del formulario */
+    text-align: center; /* Centra el texto dentro del formulario */
+}
+
+.registro h3 {
+    margin-bottom: 20px;
+    color: #fff; /* Color blanco para los títulos de cada formulario */
+    font-family: 'GOT', sans-serif; /* Aseguramos que los subtítulos usen la fuente GOT */
+    font-size: 1.5rem;
+}
+
+.registro input {
+    display: block;
+    width: calc(100% - 20px); /* Ocupa el ancho completo menos el padding */
+    margin-bottom: 15px; /* Espacio entre inputs */
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background-color: #3b353f; /* Fondo oscuro para los campos de entrada */
+    color: white;
+    font-size: 1rem;
+}
+
+.registro input::placeholder {
+    color: #aaa;
+}
+
+/* --- Estilos para los botones "Guardar" dentro de los formularios de registro --- */
+/* Se especifica ".registro .button" para que solo afecte a los botones dentro de ".registro" */
+.registro .button {
+    background-color: #6a4d3c; /* Mantiene el color original que tenías para los botones del index */
+    color: white;
+    border: none; /* Asegura que no tenga bordes */
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    width: 100%; /* El botón ocupa todo el ancho disponible */
+    margin-top: 10px; /* Espacio entre el último input y el botón */
+    transition: background-color 0.3s ease; /* Transición suave para el hover */
+}
+
+.registro .button:hover {
+    background-color: #8a6650; /* Color un poco más claro al pasar el ratón */
+}
+
+/* --- Estilos para el botón "Regresar al Inicio" específico de esta página --- */
+/* Se usa la anidación para ser muy específico con este botón */
+.contenedor > div[style="text-align: center; margin-top: 30px;"] .button {
+    background-color: #cfa284; /* Color que tienes para los botones en reservas.html */
+    color: white;
+    border: none; /* Asegura que no tenga bordes */
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-block; /* Para que aplique padding y funcione como botón */
+    margin-top: 30px;
+    transition: background-color 0.3s ease;
+}
+
+.contenedor > div[style="text-align: center; margin-top: 30px;"] .button:hover {
+    background-color: #e0b496; /* Un poco más claro al pasar el ratón */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* inventario*/
+/* --- Declaración de la fuente personalizada (asegúrate de que la ruta sea correcta) --- */
+
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+@font-face {
+    font-family: 'GOT';
+    src: url('game-of-thrones fonts/Game of Thrones.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* --- Declaración de la fuente personalizada (asegúrate de que la ruta sea correcta) --- */
+@font-face {
+    font-family: 'GOT';
+    src: url('game-of-thrones fonts/Game of Thrones.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* --- Estilos para el body de inventario.html --- */
+.bodyinventario {
+    font-family: 'GOT', 'Segoe UI', sans-serif;
+    background-color: #2b2b2b; /* Un gris un tono más claro como en reservas.html */
+    color: white;
+    margin: 0;
+    padding: 20px; /* Padding general alrededor del contenido */
+    line-height: 1.6;
+    box-sizing: border-box; /* Incluye padding en la altura/ancho */
+    min-height: 100vh; /* Para que el body ocupe al menos toda la altura de la ventana */
+    /* Importante: No se usa display: flex; en el body aquí,
+       para que el contenido fluya de forma natural y el scroll vertical aparezca automáticamente
+       cuando el contenido exceda la altura de la ventana. */
+    overflow-x: hidden; /* Evita el scroll horizontal no deseado */
+}
+
+/* --- Estilos para el contenedor principal de inventario --- */
+.contenedor {
+    max-width: 1400px; /* Aumentado el ancho máximo del contenedor principal */
+    margin: 40px auto; /* Centra el contenedor y añade margen superior/inferior */
+    padding: 50px; /* Aumentado el espaciado interno */
+    background-color: #1a1a1a; /* Fondo para el contenedor principal, más oscuro que el body */
+    border-radius: 16px; /* Bordes redondeados */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra para profundidad */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho/alto */
+}
+
+.contenedor h2 {
+    text-align: center;
+    color: #cfa284; /* Color de acento para el título */
+    margin-bottom: 50px; /* Más espacio debajo del título principal */
+    font-family: 'GOT', sans-serif;
+    font-size: 3rem; /* Título principal un poco más grande */
+}
+
+/* --- Contenedor de categorías (flexbox para organizar las columnas) --- */
+.inventario-categorias {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las categorías se envuelvan en pantallas pequeñas */
+    gap: 40px; /* Más espacio entre las columnas de categorías */
+    justify-content: center; /* Centra las categorías horizontalmente */
+}
+
+/* --- Estilos para cada sección de categoría (Granos, Cafés Preparados, Postres, Harinas) --- */
+.categoria-item {
+    background-color: #222; /* Fondo de cada tarjeta de categoría, un gris medio */
+    padding: 40px; /* Aumentado el espaciado interno de cada tarjeta */
+    border-radius: 12px;
+    flex: 1; /* Permite que las categorías se expandan para ocupar el espacio */
+    min-width: 350px; /* Aumentado el ancho mínimo para cada categoría */
+    max-width: 450px; /* Aumentado el ancho máximo para mantener el diseño en 3 columnas */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido horizontalmente (incluida la imagen) */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho/alto */
+}
+
+.categoria-item h3 {
+    color: #fff;
+    font-family: 'GOT', sans-serif;
+    font-size: 2rem; /* Título de categoría un poco más grande */
+    margin-bottom: 20px; /* Más espacio debajo del título de categoría */
+    text-align: center;
+    padding-bottom: 0;
+}
+
+/* --- Estilos para las imágenes de categoría (DE TAMAÑO FIJO) --- */
+.categoria-imagen {
+    width: 150px; /* Ancho fijo para todas las imágenes */
+    height: 150px; /* Alto fijo para todas las imágenes */
+    object-fit: cover; /* Recorta la imagen para que cubra el área sin distorsionarse */
+    margin-bottom: 30px; /* Más espacio debajo de la imagen */
+    border-radius: 50%; /* Opcional: para hacerlas circulares */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra suave para la imagen */
+}
+
+/* --- Lista de ítems dentro de cada categoría (con scroll interno) --- */
+.lista-items {
+    margin-bottom: 30px; /* Más espacio debajo de la lista */
+    min-height: 120px; /* Asegura un tamaño mínimo un poco mayor */
+    padding: 15px; /* Más padding interno */
+    background-color: #292929; /* Fondo para el área de la lista de ítems */
+    border-radius: 8px;
+    border: 1px solid #333;
+    overflow-y: auto; /* Permite scroll si hay muchos ítems aquí dentro */
+    max-height: 300px; /* Altura máxima antes de que aparezca el scroll interno */
+    width: 100%; /* Para que ocupe todo el ancho disponible */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho */
+}
+
+.item-inventario {
+    background-color: #3b353f; /* Fondo de cada ítem individual */
+    padding: 12px 18px; /* Más padding para cada ítem */
+    margin-bottom: 10px; /* Más espacio entre ítems */
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between; /* Espacio entre el nombre y las acciones */
+    align-items: center;
+    font-size: 1.1rem; /* Texto del ítem un poco más grande */
+    color: #eee;
+    flex-wrap: wrap; /* Permite que el contenido se envuelva si no hay espacio */
+    box-sizing: border-box;
+}
+
+.item-nombre {
+    flex-grow: 1; /* Permite que el nombre ocupe el espacio restante */
+    margin-right: 15px; /* Más espacio a la derecha del nombre */
+    min-width: 100px; /* Asegura un ancho mínimo para el nombre */
+}
+
+/* --- Contenedor para los botones de acción (+/-) y el input de cantidad/stock --- */
+.item-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Más espacio entre botones y input */
+    flex-shrink: 0; /* Evita que el contenedor de acciones se encoja */
+    margin-left: auto; /* Empuja las acciones a la derecha si item-nombre se envuelve */
+}
+
+.button-action {
+    background-color: #cfa284; /* Color de los botones de reservas.html */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 35px; /* Botones un poco más grandes */
+    height: 35px; /* Botones un poco más grandes */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.4rem; /* Texto de los botones más grande */
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.button-action:hover {
+    background-color: #e0b496;
+}
+
+/* Estilos para los inputs de cantidad (para ingredientes) y stock (para productos) */
+.item-cantidad, .item-stock {
+    width: 70px; /* Ancho del input un poco más grande */
+    padding: 8px; /* Más padding interno */
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #444;
+    color: white;
+    text-align: center;
+    font-size: 1.1rem; /* Texto del input más grande */
+    -moz-appearance: textfield; /* Oculta las flechas por defecto en Firefox */
+    box-sizing: border-box;
+}
+
+/* Ocultar las flechas de los inputs tipo number en Chrome/Safari/Edge */
+.item-cantidad::-webkit-outer-spin-button,
+.item-cantidad::-webkit-inner-spin-button,
+.item-stock::-webkit-outer-spin-button,
+.item-stock::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Estilos para las unidades (kg) y el precio */
+.item-unidad, .item-precio {
+    color: #ccc;
+    font-size: 1em; /* Texto de la unidad/precio un poco más grande */
+    margin-left: 8px; /* Más espacio a la izquierda */
+    min-width: 45px; /* Para que las unidades no se muevan tanto */
+    text-align: left;
+}
+
+.mensaje-vacio {
+    color: #aaa;
+    text-align: center;
+    font-style: italic;
+    padding: 20px 0;
+}
+
+/* --- Formularios para agregar NUEVOS tipos de ítems --- */
+.form-add-new-item {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Más espacio entre los elementos del formulario */
+    margin-top: auto; /* Empuja el formulario hacia abajo dentro de la categoría */
+    padding-top: 20px; /* Más padding superior */
+    border-top: 1px solid #333;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-add-new-item input[type="text"],
+.form-add-new-item input[type="number"] {
+    padding: 15px; /* Más padding en los inputs del formulario */
+    border-radius: 8px;
+    border: none;
+    background-color: #3b353f;
+    color: white;
+    font-size: 1.1rem; /* Texto de los inputs más grande */
+    width: calc(100% - 30px); /* Ajuste por padding */
+    box-sizing: border-box;
+}
+
+.form-add-new-item input::placeholder {
+    color: #aaa;
+}
+
+/* --- Estilo para el botón "Agregar" dentro de los formularios de categoría --- */
+.form-add-new-item .button {
+    background-color: #6a4d3c;
+    color: white;
+    border: none;
+    padding: 15px 30px; /* Más padding en el botón */
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem; /* Texto del botón más grande */
+    transition: background-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-add-new-item .button:hover {
+    background-color: #8a6650;
+}
+
+/* --- Estilo para el botón "Regresar al Inicio" al final de la página --- */
+/* (Este es el estilo que tenía un selector inusual, lo he mantenido para compatibilidad) */
+.contenedor > div[style="text-align: center; margin-top: 40px;"] .button {
+    background-color: #cfa284;
+    color: white;
+    border: none;
+    padding: 15px 30px; /* Más padding en el botón */
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.contenedor > div[style="text-align: center; margin-top: 40px;"] .button:hover {
+    background-color: #e0b496;
+}
+
+---
+
+## Media Queries para Responsividad
+
+```css
+@media (max-width: 1200px) { /* Ajustado el breakpoint */
+    .contenedor {
+        max-width: 95%; /* Permite que el contenedor ocupe más espacio en pantallas medianas */
+        padding: 40px;
+    }
+    .inventario-categorias {
+        gap: 30px;
+    }
+    .categoria-item {
+        min-width: 300px; /* Ajuste para asegurar 2 columnas en algunos tamaños */
+        max-width: 48%; /* Para dos columnas */
+    }
+}
+
+@media (max-width: 800px) { /* Nuevo breakpoint para una columna */
+    .inventario-categorias {
+        flex-direction: column; /* Apila las categorías en pantallas más pequeñas */
+        align-items: center;
+    }
+    .categoria-item {
+        max-width: 90%; /* Ajusta el ancho para pantallas muy pequeñas */
+        min-width: unset; /* Elimina el min-width para mayor flexibilidad */
+    }
+    .contenedor h2 {
+        font-size: 2.2rem;
+        margin-bottom: 40px;
+    }
+    /* Asegura que el nombre y las acciones se distribuyan bien en el ítem de inventario */
+    .item-inventario {
+        flex-direction: row; /* Mantener en fila en este breakpoint, o cambiar a column si se prefiere */
+        flex-wrap: wrap; /* Permitir que se envuelva si es necesario */
+        align-items: center;
+        justify-content: space-between;
+    }
+    .item-nombre {
+        margin-right: 10px; /* Ajuste de margen para pantallas más pequeñas */
+        flex-basis: calc(100% - 150px); /* Darle casi todo el ancho, dejando espacio para acciones */
+        white-space: normal; /* Permite que el texto se envuelva naturalmente */
+        overflow: visible; /* Asegura que todo el texto sea visible */
+        text-overflow: clip; /* No elipsis si se envuelve */
+        margin-bottom: 5px; /* Añade un pequeño espacio si se envuelve */
+    }
+    .item-actions {
+        margin-left: 0; /* Reset margin */
+        justify-content: flex-end; /* Alinea las acciones a la derecha */
+        flex-basis: auto; /* Deja que el contenido determine el ancho */
+    }
+}
+
+@media (max-width: 600px) {
+    .bodyinventario {
+        padding: 10px;
+    }
+    .contenedor {
+        margin: 20px auto;
+        padding: 20px;
+    }
+    .contenedor h2 {
+        font-size: 1.8rem; /* Más pequeño para móviles */
+        margin-bottom: 25px;
+    }
+    .categoria-item {
+        padding: 20px;
+    }
+    .categoria-item h3 {
+        font-size: 1.5rem;
+    }
+    .categoria-imagen {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 25px;
+    }
+    .lista-items {
+        padding: 10px;
+        max-height: 200px;
+    }
+    .item-inventario {
+        font-size: 1rem;
+        padding: 10px 12px;
+        /* Vuelve a columna para pantallas muy pequeñas para mejor espaciado vertical */
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    .item-nombre {
+        margin-bottom: 5px;
+        font-size: 1rem;
+        width: 100%; /* Ocupa todo el ancho en este tamaño */
+        margin-right: 0; /* Reset margin */
+    }
+    .item-actions {
+        width: 100%; /* Ocupa todo el ancho */
+        justify-content: space-between; /* Distribuye botones y cantidad */
+        margin-left: 0; /* Reset margin */
+    }
+    .item-cantidad, .item-stock {
+        width: 80px; /* Un poco más grande para el touch */
+    }
+    .button-action {
+        width: 28px;
+        height: 28px;
+        font-size: 1.1rem;
+    }
+    .item-unidad, .item-precio {
+        font-size: 0.85em;
+        min-width: 35px;
+    }
+    .form-add-new-item input,
+    .form-add-new-item .button {
+        font-size: 1rem;
+        padding: 10px;
+    }
+    .contenedor > div[style="text-align: center; margin-top: 40px;"] .button {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*css gracias */
+
+/* ==== gracias_estilos.css ==== */
+
+/* --- Declaración de la fuente personalizada (asegúrate de que la ruta sea correcta) --- */
+
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+@font-face {
+    font-family: 'GOT';
+    src: url('game-of-thrones fonts/Game of Thrones.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Estilos para el body de la página de agradecimiento */
+body.gracias-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ocupa el 100% de la altura de la ventana */
+    background-color: #2b2b2b; /* Fondo similar a tu inventario */
+    color: white;
+    font-family: 'GOT', 'Segoe UI', sans-serif;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 0; /* Asegúrate de que no haya margen por defecto */
+}
+
+/* Contenedor principal del mensaje de agradecimiento */
+.gracias-contenido {
+    background-color: #1a1a1a; /* Fondo oscuro como tu contenedor principal */
+    padding: 60px 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Título principal de agradecimiento */
+.gracias-contenido h1 {
+    color: #cfa284; /* Color de acento */
+    font-family: 'GOT', sans-serif;
+    font-size: 3.5rem;
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+/* Párrafo del mensaje */
+.gracias-contenido p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+/* Estilos para el botón "Volver al Inicio" */
+.gracias-contenido .button {
+    background-color: #cfa284;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.gracias-contenido .button:hover {
+    background-color: #e0b496;
+}
+
+/* Media Queries para responsividad */
+@media (max-width: 600px) {
+    .gracias-contenido {
+        padding: 40px 20px;
+    }
+    .gracias-contenido h1 {
+        font-size: 2.5rem;
+    }
+    .gracias-contenido p {
+        font-size: 1.1rem;
+    }
+    .gracias-contenido .button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*css cafe */
+
+/* --- 7. ESTILOS ESPECÍFICOS PARA LAS PÁGINAS DE PRODUCTOS (cafes.html, postres.html) --- */
+/* TODAS estas reglas deben comenzar con 'body.bodyproductos' */
+
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+
+body.bodyproductos {
+    display: flex;
+    justify-content: center; /* Centra el contenedor principal horizontalmente */
+    align-items: center; /* Centra el contenedor principal verticalmente */
+    min-height: 100vh; /* Asegura que ocupe al menos toda la altura del viewport */
+    padding: 20px; /* Padding general alrededor del contenido */
+    box-sizing: border-box; /* Incluye padding en el ancho/alto total */
+    overflow-y: auto; /* Permite scroll si el contenido es demasiado largo */
+    background-color: #1e1b1e; /* Fondo oscuro consistente con el proyecto */
+    color: white; /* Color de texto predeterminado para la página */
+    font-family: 'Segoe UI', sans-serif; /* Fuente consistente, ajusta si tienes una fuente general diferente */
+}
+
+body.bodyproductos .productos-contenedor {
+    background-color: #1a1a1a; /* Fondo oscuro similar a otros contenedores del proyecto */
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6); /* Sombra pronunciada para dar profundidad */
+    max-width: 900px; /* Ancho máximo para el contenedor de productos */
+    width: 95%; /* Ocupa el 95% del ancho disponible en pantallas grandes */
+    text-align: center; /* Centra el contenido dentro del contenedor */
+}
+
+body.bodyproductos .productos-contenedor h2 {
+    font-family: 'GOT', sans-serif; /* Fuente temática del proyecto */
+    font-size: 3rem; /* Tamaño de fuente grande para el título principal */
+    color: #cfa284; /* Color de acento de Alquimia Dragon */
+    margin-bottom: 30px; /* Espacio debajo del título */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Sombra sutil para el texto */
+}
+
+body.bodyproductos .lista-productos {
+    display: grid; /* Usa CSS Grid para un layout de tarjetas flexible */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Tarjetas auto-ajustables */
+    gap: 25px; /* Espacio entre las tarjetas de producto */
+    padding: 20px;
+    background-color: #292929; /* Fondo para la caja de la lista de productos */
+    border-radius: 8px;
+    border: 1px solid #333; /* Borde sutil para la caja de la lista */
+    max-height: 500px; /* Altura máxima antes de habilitar el scroll */
+    overflow-y: auto; /* Habilita el scroll vertical para la lista si es muy larga */
+}
+
+body.bodyproductos .producto-card {
+    background-color: #3b353f; /* Fondo de cada tarjeta individual de producto */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra ligera para las tarjetas */
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Transición suave para efectos de hover */
+}
+
+body.bodyproductos .producto-card:hover {
+    transform: translateY(-5px); /* Efecto de elevación sutil al pasar el ratón */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6); /* Sombra más pronunciada al hover */
+}
+
+body.bodyproductos .producto-card h3 {
+    font-family: 'GOT', sans-serif; /* Fuente temática para el nombre del producto */
+    font-size: 1.8rem;
+    color: #cfa284; /* Color de acento para el nombre del producto */
+    margin-bottom: 10px;
+}
+
+body.bodyproductos .producto-card p {
+    font-size: 1rem;
+    color: #eee; /* Color de texto claro para la información del producto */
+    margin-bottom: 5px;
+}
+
+body.bodyproductos .mensaje-vacio {
+    text-align: center; /* Centra el mensaje de "no hay productos" */
+    color: #aaa; /* Color de texto tenue */
+    font-style: italic; /* Mensaje en cursiva */
+    font-size: 1.2rem; /* Tamaño de fuente para el mensaje */
+    padding: 20px; /* Espaciado alrededor del mensaje */
+    grid-column: 1 / -1; /* Hace que ocupe todas las columnas en el grid */
+    display: block; /* Asegura que esté visible por defecto si no hay productos */
+}
+
+/* Ajuste específico para el botón "Regresar al Inicio" en páginas de productos */
+/* El estilo general del botón se toma de la clase '.button' definida globalmente. */
+body.bodyproductos .button {
+    margin-top: 30px; /* Asegura un buen espacio sobre el botón */
+    /* No es necesario repetir aquí background-color, color, padding, etc.,
+       ya que vienen definidos en la clase '.button' general. */
+}
+
+/* Media Queries para las páginas de productos (responsividad) */
+@media (max-width: 768px) {
+    body.bodyproductos .productos-contenedor {
+        padding: 30px 20px;
+    }
+    body.bodyproductos .productos-contenedor h2 {
+        font-size: 2.5rem;
+    }
+    body.bodyproductos .lista-productos {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Reducir tamaño de tarjeta en tabletas */
+        gap: 15px;
+        padding: 15px;
+    }
+    body.bodyproductos .producto-card h3 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body.bodyproductos .productos-contenedor {
+        padding: 20px 15px;
+        border-radius: 0; /* Opcional: Quitar bordes redondeados en móviles */
+        box-shadow: none; /* Opcional: Quitar sombra en móviles para un look más simple */
+    }
+    body.bodyproductos .productos-contenedor h2 {
+        font-size: 2rem;
+    }
+    body.bodyproductos .lista-productos {
+        grid-template-columns: 1fr; /* Una sola columna en móviles */
+        padding: 10px;
+        max-height: 400px; /* Altura máxima para scroll en móviles */
+    }
+    body.bodyproductos .producto-card {
+        padding: 15px;
+    }
+    body.bodyproductos .producto-card h3 {
+        font-size: 1.3rem;
+    }
+    body.bodyproductos .mensaje-vacio {
+        font-size: 1rem;
+    }
+    body.bodyproductos .button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- 7. ESTILOS ESPECÍFICOS PARA LAS PÁGINAS DE PRODUCTOS (cafes.html, postres.html) --- */
+/* TODAS estas reglas deben comenzar con 'body.bodyproductos' */
+
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+
+body.bodyproductos {
+    display: flex;
+    justify-content: center; /* Centra el contenedor principal horizontalmente */
+    align-items: center; /* Centra el contenedor principal verticalmente */
+    min-height: 100vh; /* Asegura que ocupe al menos toda la altura del viewport */
+    padding: 20px; /* Padding general alrededor del contenido */
+    box-sizing: border-box; /* Incluye padding en el ancho/alto total */
+    overflow-y: auto; /* Permite scroll si el contenido es demasiado largo */
+    background-color: #1e1b1e; /* Fondo oscuro consistente con el proyecto */
+    color: white; /* Color de texto predeterminado para la página */
+    font-family: 'Segoe UI', sans-serif; /* Fuente consistente, ajusta si tienes una fuente general diferente */
+}
+
+body.bodyproductos .productos-contenedor {
+    background-color: #1a1a1a; /* Fondo oscuro similar a otros contenedores del proyecto */
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6); /* Sombra pronunciada para dar profundidad */
+    max-width: 900px; /* Ancho máximo para el contenedor de productos */
+    width: 95%; /* Ocupa el 95% del ancho disponible en pantallas grandes */
+    text-align: center; /* Centra el contenido dentro del contenedor */
+}
+
+body.bodyproductos .productos-contenedor h2 {
+    font-family: 'GOT', sans-serif; /* Fuente temática del proyecto */
+    font-size: 3rem; /* Tamaño de fuente grande para el título principal */
+    color: #cfa284; /* Color de acento de Alquimia Dragon */
+    margin-bottom: 30px; /* Espacio debajo del título */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Sombra sutil para el texto */
+}
+
+body.bodyproductos .lista-productos {
+    display: grid; /* Usa CSS Grid para un layout de tarjetas flexible */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Tarjetas auto-ajustables */
+    gap: 25px; /* Espacio entre las tarjetas de producto */
+    padding: 20px;
+    background-color: #292929; /* Fondo para la caja de la lista de productos */
+    border-radius: 8px;
+    border: 1px solid #333; /* Borde sutil para la caja de la lista */
+    max-height: 500px; /* Altura máxima antes de habilitar el scroll */
+    overflow-y: auto; /* Habilita el scroll vertical para la lista si es muy larga */
+}
+
+body.bodyproductos .producto-card {
+    background-color: #3b353f; /* Fondo de cada tarjeta individual de producto */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Sombra ligera para las tarjetas */
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Transición suave para efectos de hover */
+}
+
+body.bodyproductos .producto-card:hover {
+    transform: translateY(-5px); /* Efecto de elevación sutil al pasar el ratón */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6); /* Sombra más pronunciada al hover */
+}
+
+body.bodyproductos .producto-card h3 {
+    font-family: 'GOT', sans-serif; /* Fuente temática para el nombre del producto */
+    font-size: 1.8rem;
+    color: #cfa284; /* Color de acento para el nombre del producto */
+    margin-bottom: 10px;
+}
+
+body.bodyproductos .producto-card p {
+    font-size: 1rem;
+    color: #eee; /* Color de texto claro para la información del producto */
+    margin-bottom: 5px;
+}
+
+body.bodyproductos .mensaje-vacio {
+    text-align: center; /* Centra el mensaje de "no hay productos" */
+    color: #aaa; /* Color de texto tenue */
+    font-style: italic; /* Mensaje en cursiva */
+    font-size: 1.2rem; /* Tamaño de fuente para el mensaje */
+    padding: 20px; /* Espaciado alrededor del mensaje */
+    grid-column: 1 / -1; /* Hace que ocupe todas las columnas en el grid */
+    display: block; /* Asegura que esté visible por defecto si no hay productos */
+}
+
+/* Ajuste específico para el botón "Regresar al Inicio" en páginas de productos */
+/* El estilo general del botón se toma de la clase '.button' definida globalmente. */
+body.bodyproductos .button {
+    margin-top: 30px; /* Asegura un buen espacio sobre el botón */
+    /* No es necesario repetir aquí background-color, color, padding, etc.,
+       ya que vienen definidos en la clase '.button' general. */
+}
+
+/* Media Queries para las páginas de productos (responsividad) */
+@media (max-width: 768px) {
+    body.bodyproductos .productos-contenedor {
+        padding: 30px 20px;
+    }
+    body.bodyproductos .productos-contenedor h2 {
+        font-size: 2.5rem;
+    }
+    body.bodyproductos .lista-productos {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Reducir tamaño de tarjeta en tabletas */
+        gap: 15px;
+        padding: 15px;
+    }
+    body.bodyproductos .producto-card h3 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body.bodyproductos .productos-contenedor {
+        padding: 20px 15px;
+        border-radius: 0; /* Opcional: Quitar bordes redondeados en móviles */
+        box-shadow: none; /* Opcional: Quitar sombra en móviles para un look más simple */
+    }
+    body.bodyproductos .productos-contenedor h2 {
+        font-size: 2rem;
+    }
+    body.bodyproductos .lista-productos {
+        grid-template-columns: 1fr; /* Una sola columna en móviles */
+        padding: 10px;
+        max-height: 400px; /* Altura máxima para scroll en móviles */
+    }
+    body.bodyproductos .producto-card {
+        padding: 15px;
+    }
+    body.bodyproductos .producto-card h3 {
+        font-size: 1.3rem;
+    }
+    body.bodyproductos .mensaje-vacio {
+        font-size: 1rem;
+    }
+    body.bodyproductos .button {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*css perfil */
+/* --- Sección para perfil.html (Página de Usuario) --- */
+
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+
+.bodyperfil {
+    font-family: 'GOT', 'Segoe UI', sans-serif;
+    background-color: #2b2b2b; /* Fondo similar a otras páginas */
+    color: white;
+    margin: 0;
+    line-height: 1.6;
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.user-header {
+    background-color: #0d0d0d; /* Fondo oscuro para la barra superior */
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+    gap: 15px; /* Espacio entre los bloques de info y nav */
+}
+
+.user-info {
+    display: flex;
+    gap: 25px; /* Espacio entre los datos de usuario */
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.user-info .header-text {
+    font-size: 1.1rem;
+    color: #ccc;
+}
+
+.user-info strong {
+    color: #cfa284;
+}
+
+.user-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px; /* Espacio entre enlaces de navegación */
+}
+
+.user-nav a {
+    color: #cfa284;
+    font-size: 1.1rem;
+    padding: 8px 15px;
+    border: 1px solid #cfa284;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.user-nav a:hover {
+    background-color: #cfa284;
+    color: #1a1a1a;
+}
+
+.profile-content {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 50px;
+    background-color: #1a1a1a;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.profile-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 40px;
+    color: #cfa284;
+    text-align: center;
+}
+
+.profile-actions {
+    margin-bottom: 60px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #333;
+}
+
+.profile-actions p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #ccc;
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px; /* Espacio entre los botones de acción */
+}
+
+.profile-button {
+    font-size: 1.3rem;
+    padding: 15px 30px;
+    min-width: 250px; /* Ancho mínimo para los botones */
+    box-sizing: border-box;
+}
+
+.user-details-section {
+    text-align: left;
+}
+
+.user-details-section h2 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.user-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 2-3 columnas responsivas */
+    gap: 30px;
+}
+
+.user-details-grid > div {
+    background-color: #222;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.user-details-grid h3 {
+    font-size: 1.5rem;
+    color: #cfa284;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.user-details-grid p {
+    font-size: 1.1rem;
+    color: #eee;
+    margin: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.margin-top-large {
+    margin-top: 40px;
+}
+
+/* --- Media Queries para perfil.html --- */
+@media (max-width: 1024px) {
+    .user-header {
+        padding: 15px 20px;
+    }
+    .user-info {
+        gap: 15px;
+    }
+    .user-info .header-text {
+        font-size: 1rem;
+    }
+    .user-nav ul {
+        gap: 10px;
+    }
+    .user-nav a {
+        font-size: 1rem;
+        padding: 6px 10px;
+    }
+    .profile-content {
+        padding: 30px;
+        margin: 20px auto;
+    }
+    .profile-content h1 {
+        font-size: 2.8rem;
+        margin-bottom: 30px;
+    }
+    .profile-actions p {
+        font-size: 1.1rem;
+    }
+    .profile-button {
+        font-size: 1.2rem;
+        padding: 12px 25px;
+        min-width: unset; /* Permite que el ancho se ajuste */
+        width: calc(50% - 15px); /* Dos botones por fila */
+    }
+    .user-details-section h2 {
+        font-size: 2rem;
+    }
+    .user-details-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    .user-details-grid h3 {
+        font-size: 1.3rem;
+    }
+    .user-details-grid p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .user-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 15px;
+    }
+    .user-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .user-nav {
+        width: 100%; /* Ocupa todo el ancho */
+        margin-top: 10px;
+    }
+    .user-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 8px;
+    }
+    .user-nav li {
+        width: 100%;
+    }
+    .user-nav a {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    .profile-content {
+        padding: 20px;
+    }
+    .profile-content h1 {
+        font-size: 2.2rem;
+        margin-bottom: 25px;
+    }
+    .profile-actions p {
+        font-size: 1rem;
+    }
+    .profile-button {
+        width: 100%; /* Un botón por fila */
+        font-size: 1.1rem;
+        padding: 10px 20px;
+    }
+    .action-buttons {
+        gap: 15px;
+    }
+    .user-details-section h2 {
+        font-size: 1.8rem;
+    }
+    .user-details-grid {
+        grid-template-columns: 1fr; /* Una columna en móviles */
+    }
+    .user-details-grid h3 {
+        font-size: 1.2rem;
+    }
+    .user-details-grid p {
+        font-size: 0.95rem;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* css de registro usuarios*/
+
+/* --- Sección para registro.html (Página de Registro de Usuario) --- */
+
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+
+.bodyregistro {
+    font-family: 'GOT', 'Segoe UI', sans-serif;
+    background-color: #2b2b2b; /* Fondo similar a otras páginas */
+    color: white;
+    margin: 0;
+    line-height: 1.6;
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    display: flex; /* Para centrar el contenedor de registro */
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Padding general */
+}
+
+.registro-container {
+    background-color: #1a1a1a;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    max-width: 500px; /* Ancho máximo del formulario de registro */
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.registro-container h2 {
+    font-size: 2.8rem;
+    color: #cfa284;
+    margin-bottom: 20px;
+}
+
+.registro-container p {
+    font-size: 1.1rem;
+    color: #ccc;
+    margin-bottom: 30px;
+}
+
+.registro-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espacio entre grupos de formulario */
+}
+
+.form-group {
+    text-align: left; /* Alinea etiquetas a la izquierda */
+}
+
+.form-group label {
+    display: block; /* Cada label en su propia línea */
+    font-size: 1.1rem;
+    color: #eee;
+    margin-bottom: 8px;
+}
+
+.registro-container input[type="text"],
+.registro-container input[type="email"],
+.registro-container input[type="password"],
+.registro-container input[type="tel"] {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    border: none;
+    background-color: #3b353f;
+    color: white;
+    font-size: 1rem;
+    box-sizing: border-box; /* Incluye padding en el ancho */
+}
+
+.registro-container input::placeholder {
+    color: #aaa;
+}
+
+.registro-container .button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    width: 100%; /* El botón ocupa todo el ancho */
+    box-sizing: border-box;
+}
+
+.login-link {
+    margin-top: 30px;
+    font-size: 1rem;
+}
+
+.login-link a {
+    color: #cfa284;
+    font-weight: bold;
+}
+
+/* --- Media Queries para registro.html --- */
+@media (max-width: 600px) {
+    .bodyregistro {
+        padding: 10px;
+    }
+    .registro-container {
+        padding: 25px;
+        margin: 15px;
+    }
+    .registro-container h2 {
+        font-size: 2.2rem;
+        margin-bottom: 15px;
+    }
+    .registro-container p {
+        font-size: 1rem;
+        margin-bottom: 25px;
+    }
+    .form-group label {
+        font-size: 1rem;
+    }
+    .registro-container input,
+    .registro-container .button {
+        font-size: 0.95rem;
+        padding: 12px;
+    }
+    .registro-container .button {
+        padding: 12px 25px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*css reservas usuario */
+/* --- Estilos para reservas_usuario.html (Combinación de Perfil y Reservas) --- */
+
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+
+.bodyreservas {
+    font-family: 'GOT', 'Segoe UI', sans-serif;
+    background-color: #2b2b2b; /* Fondo principal de la página */
+    color: white;
+    margin: 0;
+    line-height: 1.6;
+    min-height: 100vh; /* Asegura que el body ocupe al menos toda la altura de la ventana */
+    box-sizing: border-box;
+    overflow-x: hidden; /* Evita el scroll horizontal no deseado */
+    display: flex;
+    flex-direction: column; /* Apila la cabecera y el contenido verticalmente */
+}
+
+/* El user-header ya debe estar definido en estilos.css desde perfil.html */
+/* Si no lo está, asegúrate de que las siguientes reglas estén presentes para user-header, user-info, user-nav, etc. */
+/*
+.user-header {
+    background-color: #0d0d0d;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.user-info {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.user-info .header-text {
+    font-size: 1.1rem;
+    color: #ccc;
+}
+
+.user-info strong {
+    color: #cfa284;
+}
+
+.user-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.user-nav a {
+    color: #cfa284;
+    font-size: 1.1rem;
+    padding: 8px 15px;
+    border: 1px solid #cfa284;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.user-nav a:hover {
+    background-color: #cfa284;
+    color: #1a1a1a;
+}
+*/
+
+/* Contenedor principal de la página de reservas (el cuerpo debajo de la cabecera) */
+.reservas-main-content {
+    flex-grow: 1; /* Permite que este contenedor ocupe el espacio restante */
+    max-width: 1000px; /* Ancho máximo para el contenido principal */
+    margin: 40px auto; /* Centra el contenedor y añade margen superior/inferior */
+    padding: 50px;
+    background-color: #1a1a1a; /* Fondo más oscuro para el contenido principal */
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.reservas-main-content h2 {
+    font-size: 3rem;
+    margin-bottom: 40px;
+    color: #cfa284;
+}
+
+.reservas-main-content p {
+    font-size: 1.1rem;
+    color: #ccc;
+    margin-bottom: 30px;
+}
+
+.reserva-form { /* Cambiado de .formulario-agenda para evitar conflictos y ser más específico */
+    display: flex;
+    flex-direction: column; /* Apila los elementos verticalmente */
+    gap: 20px; /* Espacio entre los grupos de formulario */
+    margin-bottom: 30px;
+    padding: 30px;
+    background-color: #222; /* Fondo del formulario */
+    border-radius: 12px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra interna para el formulario */
+    text-align: left; /* Alinea etiquetas y campos a la izquierda */
+}
+
+.reserva-form label {
+    display: block;
+    font-size: 1.1rem;
+    color: #eee;
+    margin-bottom: 8px;
+}
+
+.reserva-form input,
+.reserva-form select,
+.reserva-form textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    border: none;
+    background-color: #3b353f; /* Color de fondo de los inputs */
+    color: white;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.reserva-form input::placeholder,
+.reserva-form textarea::placeholder {
+    color: #aaa;
+}
+
+.reserva-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Botones dentro del formulario (usando la clase .button general) */
+.reserva-form .button {
+    margin-top: 10px; /* Espacio superior para los botones */
+    width: auto; /* Permite que el botón se ajuste a su contenido */
+    align-self: center; /* Centra los botones si el flex-direction es column */
+    min-width: 180px; /* Ancho mínimo para que se vean bien */
+}
+
+.button-cancel { /* Estilo específico para el botón cancelar */
+    background-color: #a00; /* Rojo */
+    color: white;
+}
+
+.button-cancel:hover {
+    background-color: #c00; /* Rojo más oscuro al pasar el ratón */
+}
+
+/* Estilos de los mensajes de éxito/error */
+#message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: none; /* Oculto por defecto */
+    text-align: center;
+}
+
+#message.success {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+}
+
+#message.error {
+    background-color: #f44336; /* Rojo */
+    color: white;
+}
+
+/* Sección de mesas disponibles */
+.mesas-container { /* Renombrado de .mesas para ser más específico */
+    margin-top: 50px;
+    border-top: 1px solid #333;
+    padding-top: 30px;
+}
+
+.mesas-container h3 {
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: 25px;
+}
+
+.mesas-list { /* Renombrado de .mesas para ser más específico y que no choque con .mesas-container */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Mesas más grandes */
+    gap: 20px;
+    background-color: #292929; /* Fondo de la lista de mesas */
+    padding: 20px;
+    border-radius: 10px;
+    overflow-y: auto; /* Scroll si hay muchas mesas */
+    max-height: 400px; /* Altura máxima antes de scroll */
+}
+
+.mesa-card { /* Renombrado de .mesa para ser más descriptivo y no chocar con el tag HTML <mesa> */
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease;
+    cursor: pointer;
+    box-sizing: border-box;
+    border: 3px solid transparent; /* Borde transparente por defecto */
+}
+
+.mesa-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.mesa-card.selected {
+    border: 3px solid #cfa284; /* Borde al seleccionar */
+    box-shadow: 0 0 15px rgba(207, 162, 132, 0.7);
+}
+
+.mesa-card p {
+    margin: 5px 0;
+    font-size: 1.1rem;
+}
+
+.mesa-card .mesa-numero {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #cfa284;
+}
+
+.mesa-card .mesa-capacidad {
+    font-size: 1.2rem;
+    color: #ccc;
+}
+
+.mesa-card .mesa-estado {
+    font-style: italic;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+/* Colores para el estado de las mesas */
+.mesa-card.ocupada {
+    background-color: #5c2020; /* Rojo más tenue */
+    cursor: not-allowed;
+}
+
+.mesa-card.disponible {
+    background-color: #205c20; /* Verde más tenue */
+}
+
+
+/* Estilo del botón "Regresar a Mi Perfil" */
+.text-center.margin-top-large {
+    margin-top: 40px;
+}
+
+.text-center.margin-top-large .button {
+    font-size: 1.2rem;
+    padding: 15px 30px;
+}
+
+
+/* --- Media Queries para reservas_usuario.html --- */
+@media (max-width: 1024px) {
+    .reservas-main-content {
+        max-width: 95%;
+        padding: 40px;
+    }
+    .reserva-form {
+        padding: 25px;
+    }
+    .mesas-list {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .reservas-main-content {
+        padding: 30px;
+        margin: 20px auto;
+    }
+    .reservas-main-content h2 {
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+    }
+    .reserva-form input,
+    .reserva-form select,
+    .reserva-form textarea {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+    .reserva-form .button {
+        font-size: 1.1rem;
+        padding: 12px 25px;
+        min-width: 150px;
+    }
+    .mesas-container h3 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+    .mesas-list {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 10px;
+        padding: 15px;
+    }
+    .mesa-card {
+        padding: 15px;
+    }
+    .mesa-card .mesa-numero {
+        font-size: 1.8rem;
+    }
+    .mesa-card .mesa-capacidad {
+        font-size: 1.1rem;
+    }
+    .mesa-card .mesa-estado {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .user-header { /* Asegurar que la cabecera también sea responsiva */
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 15px;
+    }
+    .user-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .user-nav {
+        width: 100%;
+        margin-top: 10px;
+    }
+    .user-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 8px;
+    }
+    .user-nav li {
+        width: 100%;
+    }
+    .user-nav a {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .reservas-main-content {
+        padding: 20px;
+        margin: 15px auto;
+    }
+    .reservas-main-content h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+    .reserva-form {
+        padding: 15px;
+        gap: 15px;
+    }
+    .reserva-form label {
+        font-size: 1rem;
+    }
+    .reserva-form input,
+    .reserva-form select,
+    .reserva-form textarea {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+    .reserva-form .button {
+        font-size: 1rem;
+        padding: 10px 20px;
+        min-width: unset;
+    }
+    .mesas-container h3 {
+        font-size: 1.5rem;
+    }
+    .mesas-list {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        padding: 10px;
+    }
+    .mesa-card {
+        padding: 10px;
+    }
+    .mesa-card .mesa-numero {
+        font-size: 1.5rem;
+    }
+    .mesa-card .mesa-capacidad {
+        font-size: 1rem;
+    }
+    .text-center.margin-top-large .button {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+}
+
+/* ==================== Estilos de la Barra de Navegación Superior (Comunes a Perfil y Reservas de Usuario) ==================== */
+
+.user-header {
+    background-color: #0d0d0d; /* Fondo oscuro casi negro */
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between; /* Espacio entre info y nav */
+    align-items: center; /* Centrado vertical */
+    border-bottom: 1px solid #333; /* Línea separadora */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* Sombra sutil */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+    gap: 15px; /* Espacio entre los bloques de info y nav cuando se envuelven */
+}
+
+.user-info {
+    display: flex;
+    gap: 25px; /* Espacio entre los datos de usuario (Usuario, Mesa, Jugadores) */
+    align-items: center;
+    flex-wrap: wrap; /* También permite envolver los datos de usuario */
+}
+
+.user-info .header-text {
+    font-size: 1.1rem;
+    color: #ccc; /* Color de texto ligeramente gris */
+}
+
+.user-info strong {
+    color: #cfa284; /* Color acentuado para la información importante */
+}
+
+.user-nav ul {
+    list-style: none; /* Quita los puntos de la lista */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Muestra los elementos de la lista en línea */
+    gap: 20px; /* Espacio entre "Cambiar de Usuario" y "Cerrar Sesión" */
+}
+
+.user-nav a {
+    color: #cfa284; /* Color acentuado para los enlaces */
+    font-size: 1.1rem;
+    padding: 8px 15px;
+    border: 1px solid #cfa284; /* Borde con el color acentuado */
+    border-radius: 5px; /* Bordes redondeados */
+    text-decoration: none; /* Quita el subrayado */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+    display: inline-block; /* Asegura padding y tamaño correcto */
+}
+
+.user-nav a:hover {
+    background-color: #cfa284; /* Fondo al pasar el ratón */
+    color: #1a1a1a; /* Texto oscuro al pasar el ratón */
+}
+
+/* --- Media Queries para la barra de navegación (asegura responsividad) --- */
+@media (max-width: 768px) {
+    .user-header {
+        flex-direction: column; /* Apila los elementos verticalmente en pantallas pequeñas */
+        align-items: flex-start; /* Alinea los elementos a la izquierda */
+        gap: 10px;
+        padding: 15px;
+    }
+    .user-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .user-nav {
+        width: 100%; /* La navegación ocupa todo el ancho */
+        margin-top: 10px;
+    }
+    .user-nav ul {
+        flex-direction: column; /* Apila los enlaces de navegación */
+        align-items: flex-start;
+        width: 100%;
+        gap: 8px;
+    }
+    .user-nav li {
+        width: 100%; /* Cada elemento de la lista ocupa todo el ancho */
+    }
+    .user-nav a {
+        width: 100%; /* Cada enlace de navegación ocupa todo el ancho */
+        text-align: center; /* Centra el texto en los enlaces */
+        box-sizing: border-box; /* Incluye padding en el ancho */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* cafe*/
+/* ==================== Estilos GLOBALES / BASE (Aseguran el Scroll y la Visibilidad) ==================== */
+
+/* Estas reglas deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+
+/* Define el estilo base para los cuerpos de tus páginas.
+   Si ya tienes estas clases definidas, ASEGÚRATE de que NO tengan propiedades
+   que anulen las de 'html, body' como 'min-height' o 'overflow'.
+   Solo deben definir colores de fondo, fuentes, y el modelo flexbox. */
+.bodyperfil,
+.bodycafes-usuario,
+.bodypostres-usuario {
+    font-family: 'GOT', 'Segoe UI', sans-serif; /* Si no tienes esta fuente, cámbiala a 'Arial, sans-serif' */
+    background-color: #2b2b2b; /* Fondo principal */
+    color: white;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    /* !IMPORTANTE: Elimina las siguientes líneas si están aquí para evitar conflictos con 'html, body': */
+    /* min-height: 100vh; */
+    /* overflow-x: hidden; */
+    /* box-sizing: border-box; */
+}
+
+
+/* ==================== Estilos de la Barra de Navegación Superior (Comunes a Perfil y Reservas de Usuario) ==================== */
+/* Copia y pega este bloque si no lo tienes o verifica que esté presente y correcto */
+.user-header {
+    background-color: #0d0d0d; /* Fondo oscuro casi negro */
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between; /* Espacio entre info y nav */
+    align-items: center; /* Centrado vertical */
+    border-bottom: 1px solid #333; /* Línea separadora */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* Sombra sutil */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+    gap: 15px; /* Espacio entre los bloques de info y nav cuando se envuelven */
+}
+
+.user-info {
+    display: flex;
+    gap: 25px; /* Espacio entre los datos de usuario (Usuario, Mesa, Jugadores) */
+    align-items: center;
+    flex-wrap: wrap; /* También permite envolver los datos de usuario */
+}
+
+.user-info .header-text {
+    font-size: 1.1rem;
+    color: #ccc; /* Color de texto ligeramente gris */
+}
+
+.user-info strong {
+    color: #cfa284; /* Color acentuado para la información importante */
+}
+
+.user-nav ul {
+    list-style: none; /* Quita los puntos de la lista */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Muestra los elementos de la lista en línea */
+    gap: 20px; /* Espacio entre "Cambiar de Usuario" y "Cerrar Sesión" */
+}
+
+.user-nav a {
+    color: #cfa284; /* Color acentuado para los enlaces */
+    font-size: 1.1rem;
+    padding: 8px 15px;
+    border: 1px solid #cfa284; /* Borde con el color acentuado */
+    border-radius: 5px; /* Bordes redondeados */
+    text-decoration: none; /* Quita el subrayado */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave */
+    display: inline-block; /* Asegura padding y tamaño correcto */
+}
+
+.user-nav a:hover {
+    background-color: #cfa284; /* Fondo al pasar el ratón */
+    color: #1a1a1a; /* Texto oscuro al pasar el ratón */
+}
+
+/* --- Media Queries para la barra de navegación (asegura responsividad) --- */
+@media (max-width: 768px) {
+    .user-header {
+        flex-direction: column; /* Apila los elementos verticalmente en pantallas pequeñas */
+        align-items: flex-start; /* Alinea los elementos a la izquierda */
+        gap: 10px;
+        padding: 15px;
+    }
+    .user-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .user-nav {
+        width: 100%; /* La navegación ocupa todo el ancho */
+        margin-top: 10px;
+    }
+    .user-nav ul {
+        flex-direction: column; /* Apila los enlaces de navegación */
+        align-items: flex-start;
+        width: 100%;
+        gap: 8px;
+    }
+    .user-nav li {
+        width: 100%; /* Cada elemento de la lista ocupa todo el ancho */
+    }
+    .user-nav a {
+        width: 100%; /* Cada enlace de navegación ocupa todo el ancho */
+        text-align: center; /* Centra el texto en los enlaces */
+        box-sizing: border-box; /* Incluye padding en el ancho */
+    }
+}
+
+
+/* ==================== Estilos para el CONTENIDO PRINCIPAL (Comunes a Perfil, Cafés, Postres de Usuario) ==================== */
+/* Estas reglas también deben ser globales o al menos aplicarse a todos los 'main' */
+.profile-content, /* Para perfil.html */
+.catalog-content /* Para cafes_usuario.html y postres_usuario.html */ {
+    flex-grow: 1; /* Permite que este contenedor ocupe el espacio restante y empuje el footer hacia abajo */
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 50px;
+    background-color: #1a1a1a;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    box-sizing: border-box;
+    /* ASEGÚRATE de que NINGUNO de estos tenga un 'height' o 'max-height' fijo que impida el scroll */
+}
+
+.profile-content h1,
+.catalog-content h2 {
+    font-size: 3rem;
+    margin-bottom: 30px;
+    color: #cfa284;
+}
+
+.profile-content p,
+.catalog-content p {
+    font-size: 1.1rem;
+    color: #ccc;
+    margin-bottom: 40px;
+}
+
+/* Estilos para los botones generales (si no los tienes ya definidos globalmente) */
+.button {
+    display: inline-block;
+    background-color: #cfa284; /* Color de acento */
+    color: #1a1a1a;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #e6b898; /* Un poco más claro al pasar el ratón */
+    transform: translateY(-2px);
+}
+
+/* Estilos específicos para los botones de acción en el perfil */
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.profile-button {
+    min-width: 200px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+}
+
+/* Estilos para la sección de detalles del usuario en el perfil */
+.user-details-section {
+    background-color: #222;
+    padding: 30px;
+    border-radius: 12px;
+    margin-top: 30px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.user-details-section h2 {
+    color: #cfa284;
+    font-size: 2.5rem;
+    margin-bottom: 25px;
+}
+
+.user-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    text-align: left;
+}
+
+.user-details-grid div {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.user-details-grid h3 {
+    color: #eee;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+.user-details-grid p {
+    color: #ccc;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.margin-top-large {
+    margin-top: 40px;
+}
+
+/* ==================== Estilos ESPECÍFICOS para cafes_usuario.html y postres_usuario.html ==================== */
+/* Estos bloques pueden ir después de los estilos globales, pero asegúrate de que no dupliquen o anulen incorrectamente. */
+
+/* Estilos para el formulario de pedido de café/postre */
+#coffeeOrderForm,
+#dessertOrderForm {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Contenedor de la lista de ítems de café */
+.coffee-list,
+.dessert-list { /* Ambos comparten los mismos estilos de grid para los ítems */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    padding: 20px;
+    background-color: #222;
+    border-radius: 12px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para cada ítem individual de café/postre */
+.catalog-item {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.catalog-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.catalog-item h3 {
+    font-size: 1.8rem;
+    color: #cfa284;
+    margin-bottom: 10px;
+}
+
+.catalog-item .item-description {
+    font-size: 1rem;
+    color: #bbb;
+    min-height: 40px; /* Asegura que las descripciones de diferente longitud no desplacen los elementos */
+    margin-bottom: 15px;
+}
+
+.catalog-item .item-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+/* Controles de cantidad de cada ítem */
+.item-quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.item-quantity label {
+    font-size: 1.1rem;
+    color: #eee;
+}
+
+.item-quantity input[type="number"] {
+    width: 70px;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    background-color: #444;
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* Estilos para los mensajes de confirmación/error del pedido */
+.order-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: none; /* Oculto por defecto, se muestra con JavaScript */
+    text-align: center;
+}
+
+.order-message.success {
+    background-color: #4CAF50; /* Verde para éxito */
+    color: white;
+}
+
+.order-message.error {
+    background-color: #f44336; /* Rojo para error */
+    color: white;
+}
+
+
+/* --- Media Queries (Responsividad) para catálogos de usuario --- */
+@media (max-width: 960px) {
+    .catalog-content,
+    .profile-content { /* Aplicado a ambos contenidos principales */
+        max-width: 90%;
+        padding: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .catalog-content,
+    .profile-content { /* Aplicado a ambos contenidos principales */
+        padding: 30px;
+        margin: 20px auto;
+    }
+    .catalog-content h2,
+    .profile-content h1 { /* Ajusta el tamaño de los títulos principales */
+        font-size: 2.2rem;
+        margin-bottom: 25px;
+    }
+    .catalog-content p,
+    .profile-content p {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    .coffee-list,
+    .dessert-list,
+    .user-details-grid { /* Ajuste para pantallas medianas */
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        padding: 15px;
+    }
+    .catalog-item h3 {
+        font-size: 1.6rem;
+    }
+    .catalog-item .item-price {
+        font-size: 1.3rem;
+    }
+    .catalog-item .item-description {
+        min-height: 30px; /* Ajuste para pantallas más pequeñas */
+    }
+    .catalog-content .button,
+    .profile-content .button { /* Ajusta el tamaño de los botones */
+        padding: 12px 25px;
+        font-size: 1.1rem;
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 600px) {
+    .catalog-content,
+    .profile-content { /* Aplicado a ambos contenidos principales */
+        padding: 20px;
+        margin: 15px auto;
+    }
+    .catalog-content h2,
+    .profile-content h1 {
+        font-size: 1.8rem;
+    }
+    .coffee-list,
+    .dessert-list,
+    .user-details-grid { /* Una sola columna en pantallas muy pequeñas */
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 10px;
+    }
+    .catalog-item {
+        padding: 15px;
+    }
+    .catalog-item h3 {
+        font-size: 1.5rem;
+    }
+    .catalog-item .item-description {
+        min-height: unset; /* Eliminar altura mínima si no es necesaria en pantallas muy pequeñas */
+    }
+    .item-quantity input[type="number"] {
+        width: 60px;
+        padding: 6px;
+    }
+    .catalog-content .button,
+    .profile-content .button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        min-width: unset;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*css postres_usuarios */
+/* --- Estilos ESPECÍFICOS para postres_usuario.html --- */
+
+/* Estas reglas SIEMPRE deben ir al principio de tu estilos.css */
+html, body {
+    height: 100%; /* Asegura que html y body ocupen toda la altura disponible */
+    min-height: 100vh; /* Ocupan al menos el 100% del viewport */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Oculta el scroll horizontal en toda la página */
+    overflow-y: auto; /* Permite el scroll vertical en toda la página si el contenido se desborda */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total del elemento */
+}
+
+
+.bodypostres-usuario {
+    font-family: 'GOT', 'Segoe UI', sans-serif; /* Asegúrate de que esta fuente esté disponible o cambia a una genérica */
+    background-color: #2b2b2b; /* Fondo principal de la página de postres */
+    color: white;
+    margin: 0;
+    line-height: 1.6;
+    min-height: 100vh; /* Asegura que el body ocupe al menos toda la altura de la ventana */
+    box-sizing: border-box;
+    overflow-x: hidden; /* Evita el scroll horizontal no deseado */
+    display: flex;
+    flex-direction: column; /* Apila la cabecera y el contenido verticalmente */
+}
+
+/* El .user-header y sus sub-elementos (.user-info, .user-nav, .button)
+   DEBEN estar definidos GLOBALMENTE en tu estilos.css para que la barra de navegación funcione.
+   Si no los tienes aún, consulta mi respuesta anterior donde te proporcioné el CSS para la barra. */
+
+
+/* Contenedor principal del contenido del catálogo de postres */
+.catalog-content {
+    flex-grow: 1; /* Permite que este contenedor ocupe el espacio restante */
+    max-width: 900px; /* Ancho máximo para el contenido del catálogo */
+    margin: 40px auto; /* Centra el contenedor y añade margen superior/inferior */
+    padding: 50px;
+    background-color: #1a1a1a; /* Fondo más oscuro para el contenido principal */
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.catalog-content h2 {
+    font-size: 3rem;
+    margin-bottom: 30px;
+    color: #cfa284; /* Color de acento para el título */
+}
+
+.catalog-content p {
+    font-size: 1.1rem;
+    color: #ccc;
+    margin-bottom: 40px;
+}
+
+/* Estilos para el formulario de pedido de postres */
+#dessertOrderForm {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Espacio entre la lista de ítems de postres y el botón de envío */
+}
+
+/* Contenedor de la lista de ítems de postres */
+.dessert-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Muestra ítems en columnas, mínimo 250px de ancho */
+    gap: 25px; /* Espacio entre los ítems de postres */
+    padding: 20px;
+    background-color: #222;
+    border-radius: 12px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Sombra interna para el contenedor de la lista */
+}
+
+/* Estilo para cada ítem individual de postre */
+.catalog-item {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Transición suave para efectos hover */
+}
+
+.catalog-item:hover {
+    transform: translateY(-5px); /* Efecto de elevación al pasar el ratón */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.catalog-item h3 {
+    font-size: 1.8rem;
+    color: #cfa284;
+    margin-bottom: 10px;
+}
+
+.catalog-item .item-description {
+    font-size: 1rem;
+    color: #bbb;
+    min-height: 40px; /* Asegura que las descripciones de diferente longitud no desplacen los elementos */
+    margin-bottom: 15px;
+}
+
+.catalog-item .item-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+/* Controles de cantidad de cada ítem */
+.item-quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.item-quantity label {
+    font-size: 1.1rem;
+    color: #eee;
+}
+
+.item-quantity input[type="number"] {
+    width: 70px;
+    padding: 8px;
+    border-radius: 5px;
+    border: none;
+    background-color: #444;
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* Estilo del botón "Agregar al Pedido" (reutiliza la clase .button global) */
+.catalog-content .button {
+    margin-top: 30px;
+    align-self: center; /* Centra el botón de envío del formulario */
+    min-width: 200px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+}
+
+/* Estilos para los mensajes de confirmación/error del pedido */
+.order-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: none; /* Oculto por defecto, se muestra con JavaScript */
+    text-align: center;
+}
+
+.order-message.success {
+    background-color: #4CAF50; /* Verde para éxito */
+    color: white;
+}
+
+.order-message.error {
+    background-color: #f44336; /* Rojo para error */
+    color: white;
+}
+
+/* Estilo del botón "Regresar a Mi Perfil" (ya definido por clases globales) */
+.text-center.margin-top-large {
+    margin-top: 40px;
+}
+
+.text-center.margin-top-large .button {
+    font-size: 1.2rem;
+    padding: 15px 30px;
+}
+
+
+/* --- Media Queries (Responsividad) para postres_usuario.html --- */
+@media (max-width: 960px) {
+    .catalog-content {
+        max-width: 90%;
+        padding: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .catalog-content {
+        padding: 30px;
+        margin: 20px auto;
+    }
+    .catalog-content h2 {
+        font-size: 2.2rem;
+        margin-bottom: 25px;
+    }
+    .catalog-content p {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    .dessert-list {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Ajuste para pantallas medianas */
+        gap: 20px;
+        padding: 15px;
+    }
+    .catalog-item h3 {
+        font-size: 1.6rem;
+    }
+    .catalog-item .item-price {
+        font-size: 1.3rem;
+    }
+    .catalog-item .item-description {
+        min-height: 30px; /* Ajuste para pantallas más pequeñas */
+    }
+    .catalog-content .button {
+        padding: 12px 25px;
+        font-size: 1.1rem;
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 600px) {
+    .catalog-content {
+        padding: 20px;
+        margin: 15px auto;
+    }
+    .catalog-content h2 {
+        font-size: 1.8rem;
+    }
+    .dessert-list {
+        grid-template-columns: 1fr; /* Una sola columna en pantallas muy pequeñas */
+        gap: 15px;
+        padding: 10px;
+    }
+    .catalog-item {
+        padding: 15px;
+    }
+    .catalog-item h3 {
+        font-size: 1.5rem;
+    }
+    .catalog-item .item-description {
+        min-height: unset; /* Eliminar altura mínima si no es necesaria en pantallas muy pequeñas */
+    }
+    .item-quantity input[type="number"] {
+        width: 60px;
+        padding: 6px;
+    }
+    .catalog-content .button {
+        padding: 10px 20px;
+        font-size: 1rem;
+        min-width: unset;
+    }
+}

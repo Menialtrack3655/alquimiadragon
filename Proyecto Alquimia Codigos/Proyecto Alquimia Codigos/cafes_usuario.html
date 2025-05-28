@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafés - La Sala de los Maestros</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="bodycafes-usuario">
+    <header class="user-header">
+        <div class="user-info">
+            <span class="header-text">Usuario: <strong id="user-name-display">Cargando...</strong></span>
+            <span class="header-text">Mesa Registrada: <strong id="user-table-display">Cargando...</strong></span>
+            <span class="header-text">Jugadores: <strong id="user-players-display">Cargando...</strong></span>
+        </div>
+        <nav class="user-nav">
+            <ul>
+                <li><a href="#" id="change-user-link">Cambiar de Usuario</a></li>
+                <li><a href="index.html" id="logout-link">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="catalog-content">
+        <h2>Nuestro Catálogo de Cafés</h2>
+        <p>Selecciona tus cafés favoritos y las cantidades deseadas.</p>
+
+        <form id="coffeeOrderForm">
+            <div class="coffee-list" id="coffeeList">
+                </div>
+            <button type="submit" class="button">Agregar al Pedido</button>
+        </form>
+
+        <div id="message" class="order-message" style="display: none;"></div>
+
+        <div class="text-center margin-top-large">
+            <a href="perfil.html" class="button">Regresar a Mi Perfil</a>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const coffeeListDiv = document.getElementById('coffeeList');
+            const coffeeOrderForm = document.getElementById('coffeeOrderForm');
+            const messageDiv = document.getElementById('message');
+
+            // Cargar datos del usuario logueado
+            const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+            if (!loggedInUser) {
+                alert("No se ha iniciado sesión. Redirigiendo al login.");
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Actualizar información del usuario en el encabezado
+            document.getElementById('user-name-display').textContent = loggedInUser.nombre || 'No disponible';
+            document.getElementById('user-table-display').textContent = loggedInUser.table || 'No registrada';
+            document.getElementById('user-players-display').textContent = loggedInUser.players || '0';
+
+            // Datos de ejemplo de cafés (en una aplicación real, esto vendría de un backend)
+            const coffees = [
+                { id: 'espresso', name: 'Espresso', price: 3.00, description: 'Café fuerte y concentrado.' },
+                { id: 'americano', name: 'Americano', price: 3.50, description: 'Espresso diluido con agua caliente.' },
+                { id: 'latte', name: 'Latte', price: 4.50, description: 'Espresso con leche vaporizada y un poco de espuma.' },
+                { id: 'cappuccino', name: 'Cappuccino', price: 4.50, description: 'Espresso con leche vaporizada y mucha espuma.' },
+                { id: 'mocha', name: 'Mocha', price: 5.00, description: 'Chocolate, espresso, leche vaporizada y crema batida.' },
+                { id: 'frio-caramelo', name: 'Frío Caramelo', price: 5.50, description: 'Bebida fría con café, leche y jarabe de caramelo.' }
+            ];
+
+            function renderCoffeeItems() {
+                coffeeListDiv.innerHTML = '';
+                coffees.forEach(coffee => {
+                    const coffeeCard = document.createElement('div');
+                    coffeeCard.classList.add('catalog-item');
+                    coffeeCard.innerHTML = `
+                        <h3>${coffee.name}</h3>
+                        <p class="item-description">${coffee.description}</p>
+                        <p class="item-price">$${coffee.price.toFixed(2)}</p>
+                        <div class="item-quantity">
+                            <label for="qty-${coffee.id}">Cantidad:</label>
+                            <input type="number" id="qty-${coffee.id}" name="coffee-${coffee.id}" min="0" value="0">
+                        </div>
+                    `;
+                    coffeeListDiv.appendChild(coffeeCard);
+                });
+            }
+
+            function displayMessage(msg, type) {
+                messageDiv.textContent = msg;
+                messageDiv.className = 'order-message'; // Reiniciar clases
+                messageDiv.classList.add(type);
+                messageDiv.style.display = 'block';
+                setTimeout(() => messageDiv.style.display = 'none', 5000);
+            }
+
+            coffeeOrderForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const order = [];
+                let totalItems = 0;
+
+                coffees.forEach(coffee => {
+                    const quantityInput = document.getElementById(`qty-${coffee.id}`);
+                    const quantity = parseInt(quantityInput.value);
+
+                    if (quantity > 0) {
+                        order.push({
+                            id: coffee.id,
+                            name: coffee.name,
+                            price: coffee.price,
+                            quantity: quantity
+                        });
+                        totalItems += quantity;
+                    }
+                });
+
+                if (order.length > 0) {
+                    // En una aplicación real, enviarías esta orden a un servidor backend.
+                    // Aquí, la guardaremos en localStorage para demostración.
+                    const userCoffeeOrderKey = 'coffeeOrder_' + loggedInUser.email;
+                    localStorage.setItem(userCoffeeOrderKey, JSON.stringify(order));
+                    displayMessage(`¡Pedido de café (${totalItems} ítems) agregado!`, 'success');
+                    // Opcionalmente, restablecer cantidades después de ordenar
+                    coffees.forEach(coffee => {
+                        document.getElementById(`qty-${coffee.id}`).value = 0;
+                    });
+                } else {
+                    displayMessage('Por favor, selecciona al menos un café y su cantidad.', 'error');
+                }
+            });
+
+            // Funcionalidad "Cambiar de Usuario"
+            document.getElementById('change-user-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Para cambiar de usuario, por favor cierra la sesión actual.');
+                window.location.href = 'login.html';
+            });
+
+            // Funcionalidad "Cerrar Sesión"
+            document.getElementById('logout-link').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('loggedInUser'); // Borrar datos del usuario logueado
+                alert('Sesión cerrada correctamente.');
+                window.location.href = 'index.html';
+            });
+
+            renderCoffeeItems();
+        });
+    </script>
+</body>
+</html>

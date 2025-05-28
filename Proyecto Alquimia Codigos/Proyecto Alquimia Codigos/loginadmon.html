@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Administrador</title>
+    <link rel="stylesheet" href="estilos.css"> </head>
+<body class="admin-login-page"> <div class="container">
+        <div class="left-section">
+            <img src="imagenes/logo_alquimia_dragon.png" alt="Logo Alquimia Dragon" class="logo" />
+            <h1 class="brand">Alquimia Dragon</h1>
+            <h2 class="slogan">El portal a la gestión de tu reino.</h2>
+            <p class="description">
+                Accede a tu cuenta para administrar reservas, productos y más.
+            </p>
+        </div>
+
+        <div class="right-section">
+            <h3>Panel de Administración</h3>
+            <h2>Iniciar Sesión</h2>
+            <form id="adminLoginForm">
+                <label for="usuario">Correo electrónico de Administrador</label>
+                <input type="text" id="usuario" name="usuario" placeholder="dueño@hotmail.com" required />
+
+                <label for="contraseña">Contraseña</label>
+                <input type="password" id="contraseña" name="contraseña" placeholder="********" required />
+
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+
+            <p id="errorMessage" style="color: red; text-align: center; margin-top: 15px; display: none;">
+                Usuario o contraseña incorrectos.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("adminLoginForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+
+            const usuarioInput = document.getElementById("usuario").value;
+            const contraseñaInput = document.getElementById("contraseña").value;
+            const errorMessage = document.getElementById("errorMessage");
+
+            // Define las credenciales de administrador
+            const adminUsuario = "dueño@hotmail.com";
+            const adminContraseña = "12345";
+
+            // Oculta el mensaje de error si estaba visible
+            errorMessage.style.display = "none";
+
+            if (usuarioInput === adminUsuario && contraseñaInput === adminContraseña) {
+                // Credenciales correctas
+                localStorage.setItem("usuarioLogueado", usuarioInput); // Guarda el usuario logueado
+                window.location.href = "index.html"; // Redirige a la página principal
+            } else {
+                // Credenciales incorrectas
+                errorMessage.style.display = "block"; // Muestra el mensaje de error
+            }
+        });
+    </script>
+</body>
+</html>

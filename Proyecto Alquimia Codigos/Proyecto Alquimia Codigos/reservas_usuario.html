@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Reserva - La Sala de los Maestros</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="bodyreservas">
+    <div class="reservas-container">
+        <h2>Gestionar Mi Reserva</h2>
+        <p>Aquí puedes ver o modificar tu reserva actual. Si no tienes una, puedes crearla.</p>
+
+        <form id="reservaForm">
+            <label for="nombre">Nombre Completo:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required>
+
+            <label for="hora">Hora:</label>
+            <input type="time" id="hora" name="hora" required>
+
+            <label for="personas">Número de Personas:</label>
+            <input type="number" id="personas" name="personas" min="1" max="10" placeholder="Número de personas" required>
+
+            <label for="mesa-elegida">Mesa Elegida:</label>
+            <input type="text" id="mesa-elegida" name="mesa-elegida" placeholder="Mesa seleccionada" readonly>
+            <label for="comentarios">Comentarios Adicionales (Opcional):</label>
+            <textarea id="comentarios" name="comentarios" rows="4" placeholder="Alguna petición especial..."></textarea>
+
+            <button type="submit" class="button">Guardar Reserva</button>
+            <button type="button" id="cancelarReserva" class="button button-cancel">Cancelar Reserva</button>
+        </form>
+
+        <div id="message" style="display: none;"></div>
+
+        <section class="mesas-container">
+            <h3>Mesas Disponibles</h3>
+            <div class="mesas-list" id="mesasList">
+                </div>
+        </section>
+
+        <div class="text-center margin-top-large">
+            <a href="perfil.html" class="button">Regresar a Mi Perfil</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const reservaForm = document.getElementById('reservaForm');
+            const messageDiv = document.getElementById('message');
+            const mesasList = document.getElementById('mesasList');
+            const mesaElegidaInput = document.getElementById('mesa-elegida');
+            const cancelarReservaBtn = document.getElementById('cancelarReserva');
+
+            let selectedMesaId = null;
+
+            // Cargar datos del usuario logueado
+            const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+            if (!loggedInUser) {
+                alert("No se ha iniciado sesión. Redirigiendo al login.");
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Precargar el nombre del usuario si está disponible
+            document.getElementById('nombre').value = loggedInUser.nombre || '';
+
+            // SIMULACIÓN DE DATOS DE MESAS Y RESERVAS
+            // En un entorno real, esto vendría de un servidor
+            let mesas = [
+                { id: 'mesa1', numero: 1, capacidad: 4, estado: 'disponible' },
+                { id: 'mesa2', numero: 2, capacidad: 6, estado: 'disponible' },
+                { id: 'mesa3', numero: 3, capacidad: 2, estado: 'ocupada' },
+                { id: 'mesa4', numero: 4, capacidad: 8, estado: 'disponible' },
+                { id: 'mesa5', numero: 5, capacidad: 4, estado: 'disponible' }
+            ];
+
+            // Cargar la reserva del usuario desde localStorage si existe
+            // La clave podría ser única para cada usuario (ej. 'reserva_' + loggedInUser.email)
+            const userReservaKey = 'reserva_' + loggedInUser.email;
+            let currentUserReserva = JSON.parse(localStorage.getItem(userReservaKey));
+
+            function displayMessage(msg, type) {
+                messageDiv.textContent = msg;
+                messageDiv.className = ''; // Limpia clases anteriores
+                messageDiv.classList.add(type);
+                messageDiv.style.display = 'block';
+                setTimeout(() => messageDiv.style.display = 'none', 5000);
+            }
+
+            function renderMesas() {
+                mesasList.innerHTML = '';
+                mesas.forEach(mesa => {
+                    const mesaCard = document.createElement('div');
+                    mesaCard.classList.add('mesa-card', mesa.estado);
+                    if (selectedMesaId === mesa.id) {
+                        mesaCard.classList.add('selected');
+                    }
+                    mesaCard.setAttribute('data-id', mesa.id);
+                    mesaCard.innerHTML = `
+                        <p class="mesa-numero">Mesa ${mesa.numero}</p>
+                        <p class="mesa-capacidad">${mesa.capacidad} personas</p>
+                        <p class="mesa-estado">${mesa.estado === 'disponible' ? 'Disponible' : 'Ocupada'}</p>
+                    `;
+                    mesaCard.addEventListener('click', () => {
+                        if (mesa.estado === 'disponible') {
+                            selectMesa(mesa.id, mesa.numero);
+                        } else {
+                            displayMessage('Esta mesa no está disponible.', 'error');
+                        }
+                    });
+                    mesasList.appendChild(mesaCard);
+                });
+            }
+
+            function selectMesa(id, numero) {
+                selectedMesaId = id;
+                mesaElegidaInput.value = `Mesa No. ${numero}`;
+                renderMesas(); // Vuelve a renderizar para actualizar la selección visual
+            }
+
+            // Rellenar el formulario si hay una reserva existente
+            function loadReserva() {
+                if (currentUserReserva) {
+                    document.getElementById('nombre').value = currentUserReserva.nombre;
+                    document.getElementById('fecha').value = currentUserReserva.fecha;
+                    document.getElementById('hora').value = currentUserReserva.hora;
+                    document.getElementById('personas').value = currentUserReserva.personas;
+                    document.getElementById('comentarios').value = currentUserReserva.comentarios;
+
+                    selectedMesaId = currentUserReserva.mesaId;
+                    mesaElegidaInput.value = currentUserReserva.mesaNombre;
+
+                    // Actualizar estado de la mesa si está ocupada por esta reserva
+                    const mesaReservada = mesas.find(m => m.id === selectedMesaId);
+                    if (mesaReservada) {
+                         // No cambiar el estado aquí, solo cargar. El estado real
+                         // se manejaría en un backend para evitar conflictos.
+                         // Por ahora, si la mesa estaba libre y la reservo, simulo que se ocupa
+                         // (esto es imperfecto sin un backend)
+                    }
+                    displayMessage('Tu reserva actual ha sido cargada.', 'success');
+                }
+                renderMesas();
+            }
+
+            // Manejar el envío del formulario
+            reservaForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                if (!selectedMesaId) {
+                    displayMessage('Por favor, selecciona una mesa.', 'error');
+                    return;
+                }
+
+                const nuevaReserva = {
+                    nombre: document.getElementById('nombre').value,
+                    fecha: document.getElementById('fecha').value,
+                    hora: document.getElementById('hora').value,
+                    personas: document.getElementById('personas').value,
+                    mesaId: selectedMesaId,
+                    mesaNombre: mesaElegidaInput.value,
+                    comentarios: document.getElementById('comentarios').value,
+                    usuarioEmail: loggedInUser.email // Asociar la reserva al usuario
+                };
+
+                // Lógica para marcar la mesa como ocupada
+                // En un sistema real, esto implicaría un servidor y una base de datos
+                // Aquí, simplemente simulamos que se ocupa para el usuario.
+                const mesaOcupada = mesas.find(m => m.id === selectedMesaId);
+                if (mesaOcupada) {
+                    // Si ya había una reserva anterior, liberar esa mesa (simulado)
+                    if (currentUserReserva && currentUserReserva.mesaId !== selectedMesaId) {
+                        const oldMesa = mesas.find(m => m.id === currentUserReserva.mesaId);
+                        if (oldMesa) oldMesa.estado = 'disponible';
+                    }
+                    mesaOcupada.estado = 'ocupada'; // Marcar la nueva mesa como ocupada
+                }
+
+
+                localStorage.setItem(userReservaKey, JSON.stringify(nuevaReserva));
+                currentUserReserva = nuevaReserva; // Actualizar la reserva actual en memoria
+                renderMesas(); // Vuelve a renderizar para reflejar cambios de estado
+
+                displayMessage('Reserva guardada con éxito.', 'success');
+            });
+
+            // Manejar la cancelación de la reserva
+            cancelarReservaBtn.addEventListener('click', function() {
+                if (confirm('¿Estás seguro de que quieres cancelar tu reserva?')) {
+                    if (currentUserReserva) {
+                        // Simular que la mesa se libera
+                        const mesaLiberada = mesas.find(m => m.id === currentUserReserva.mesaId);
+                        if (mesaLiberada) {
+                            mesaLiberada.estado = 'disponible';
+                        }
+                        localStorage.removeItem(userReservaKey); // Eliminar la reserva de localStorage
+                        currentUserReserva = null; // Resetear la reserva en memoria
+
+                        // Limpiar el formulario
+                        reservaForm.reset();
+                        selectedMesaId = null;
+                        mesaElegidaInput.value = '';
+
+                        renderMesas(); // Actualizar el estado visual de las mesas
+                        displayMessage('Tu reserva ha sido cancelada.', 'success');
+                    } else {
+                        displayMessage('No tienes una reserva activa para cancelar.', 'error');
+                    }
+                }
+            });
+
+            // Inicializar la página
+            loadReserva();
+        });
+    </script>
+</body>
+</html>

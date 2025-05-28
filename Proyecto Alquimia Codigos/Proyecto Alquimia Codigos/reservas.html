@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Control de Reservas - Alquimia Dragon</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body class="bodyreservas">
+
+    <section class="contenedor">
+        <h2>Gestión de agenda</h2>
+        <form class="formulario-agenda">
+            <input type="text" placeholder="Nombre del jugador">
+            <select>
+                <option value="">Mesa</option>
+                <option>Mesa 1</option>
+                <option>Mesa 2</option>
+                <option>Mesa 3</option>
+                <option>Mesa 4</option>
+                <option>Mesa 5</option>
+                <option>Mesa 6</option>
+            </select>
+            <input type="time">
+            <button type="submit" class="button">Guardar</button>
+            <button type="reset" class="button">Cancelar</button>
+        </form>
+
+        <div class="mesas">
+            <div class="mesa">Mesa 1:<br>Reservada por: - a las 00:00</div>
+            <div class="mesa">Mesa 2:<br>Reservada por: - a las 00:00</div>
+            <div class="mesa">Mesa 3:<br>Reservada por: - a las 00:00</div>
+            <div class="mesa">Mesa 4:<br>Reservada por: - a las 00:00</div>
+            <div class="mesa">Mesa 5:<br>Reservada por: - a las 00:00</div>
+            <div class="mesa">Mesa 6:<br>Reservada por: - a las 00:00</div>
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="index.html" class="button">Regresar al Inicio</a>
+        </div>
+    </section>
+
+    <script>
+        // Obtener formulario de agenda
+        const formulario = document.querySelector(".formulario-agenda");
+        const inputNombre = formulario.querySelector('input[type="text"]');
+        const inputMesa = formulario.querySelector('select');
+        const inputHora = formulario.querySelector('input[type="time"]');
+        const divMesas = document.querySelectorAll(".mesa");
+
+        // Cargar reservas desde localStorage al iniciar
+        document.addEventListener("DOMContentLoaded", () => {
+            const reservas = JSON.parse(localStorage.getItem("reservas")) || {};
+            divMesas.forEach(mesaDiv => {
+                const mesaNombre = mesaDiv.textContent.match(/Mesa \d+/)[0];
+                if (reservas[mesaNombre]) {
+                    const { nombre, hora } = reservas[mesaNombre];
+                    mesaDiv.innerHTML = `${mesaNombre}:<br>Reservada por: ${nombre} a las ${hora}`;
+                }
+            });
+        });
+
+        // Guardar reserva al enviar formulario
+        formulario.addEventListener("submit", e => {
+            e.preventDefault();
+
+            const nombre = inputNombre.value.trim();
+            const mesa = inputMesa.value;
+            const hora = inputHora.value;
+
+            if (!nombre || !mesa || !hora) {
+                alert("Por favor completa todos los campos.");
+                return;
+            }
+
+            const reservas = JSON.parse(localStorage.getItem("reservas")) || {};
+            reservas[mesa] = { nombre, hora };
+            localStorage.setItem("reservas", JSON.stringify(reservas));
+
+            // Actualizar visualmente
+            divMesas.forEach(mesaDiv => {
+                if (mesaDiv.textContent.includes(mesa)) {
+                    mesaDiv.innerHTML = `${mesa}:<br>Reservada por: ${nombre} a las ${hora}`;
+                }
+            });
+
+            formulario.reset();
+            alert("¡Reserva guardada con éxito!");
+        });
+    </script>
+
+</body>
+</html>

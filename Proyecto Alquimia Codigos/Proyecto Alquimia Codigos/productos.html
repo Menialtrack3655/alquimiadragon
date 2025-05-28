@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestión de Pedidos</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body class="bodyproductos">
+
+    <header class="encabezado">
+        <h1>Todos los Cafés</h1>
+    </header>
+
+    <main class="grid-productos">
+        <!-- Tarjeta de producto -->
+        <div class="producto">
+            <img src="cafe.jpg" alt="Café">
+            <h2>Cappuccino</h2>
+            <div class="acciones">
+                <button class="boton-editar">✎</button>
+                <button class="boton-eliminar">🗑</button>
+            </div>
+            <button class="boton-agregar">+</button>
+        </div>
+
+        <!-- Repetir la tarjeta según necesidad -->
+        <div class="producto activo">
+            <img src="cafe.jpg" alt="Café">
+            <h2>Cappuccino</h2>
+            <div class="acciones">
+                <button class="boton-editar">✎</button>
+                <button class="boton-eliminar">🗑</button>
+            </div>
+            <button class="boton-agregar">+</button>
+        </div>
+
+        <!-- Puedes agregar más productos similares -->
+    </main>
+
+    <!-- Panel de orden (derecha) -->
+    <aside class="orden-panel">
+        <h2>Estado de Orden</h2>
+        <div class="estado">
+            <p><strong>Orden:</strong> 2x Cappuccino con canela</p>
+            <p><strong>Estado:</strong> <span class="etiqueta preparando">Preparando</span></p>
+            <p><strong>Total:</strong> $11111</p>
+        </div>
+        <ul class="estados">
+            <li>Preparando</li>
+            <li>Entregado</li>
+            <li>Servido</li>
+        </ul>
+    </aside>
+
+    <script>
+  // Inicializar el arreglo del pedido
+  let pedido = JSON.parse(localStorage.getItem("pedido")) || [];
+
+  // Seleccionar todos los botones de agregar
+  document.querySelectorAll(".boton-agregar").forEach((boton, index) => {
+    boton.addEventListener("click", () => {
+      const productos = document.querySelectorAll(".producto");
+      const producto = productos[index];
+      const nombre = producto.querySelector("h2").textContent;
+
+      // Agregar producto al pedido
+      pedido.push(nombre);
+      localStorage.setItem("pedido", JSON.stringify(pedido));
+
+      actualizarPanelOrden();
+    });
+  });
+
+  // Mostrar la orden en el panel derecho
+  function actualizarPanelOrden() {
+    const estadoDiv = document.querySelector(".estado");
+    const total = pedido.length * 55; // Suponiendo $55 por producto
+    const listaProductos = pedido.map(p => `1x ${p}`).join(", ");
+
+    estadoDiv.innerHTML = `
+      <p><strong>Orden:</strong> ${listaProductos}</p>
+      <p><strong>Estado:</strong> <span class="etiqueta preparando">Preparando</span></p>
+      <p><strong>Total:</strong> $${total}</p>
+    `;
+  }
+
+  // Mostrar datos si ya hay pedido guardado
+  window.addEventListener("DOMContentLoaded", () => {
+    if (pedido.length > 0) {
+      actualizarPanelOrden();
+    }
+  });
+    </script>
+
+</body>
+</html>

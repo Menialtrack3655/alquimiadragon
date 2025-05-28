@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Control de Administradores</title>
+  <link rel="stylesheet" href="estilos.css" />
+  </head>
+<body>
+
+    <section class="registro-usuarios">       <div class="form-container">
+      <h2>Registrar Administrador</h2>
+      <form id="registroAdminForm">           <input type="text" id="adminRegNombre" placeholder="Nombre completo" required>
+        <input type="text" id="adminRegUsuario" placeholder="Usuario de acceso" required>
+        <input type="email" id="adminRegCorreo" placeholder="Correo electrónico" required>
+        <input type="password" id="adminRegContrasena" placeholder="Contraseña" required>
+                <button type="submit" class="button">Registrar Administrador</button>
+      </form>
+    </div>
+  </section>
+
+    <section class="control-usuarios">       <h2>Administradores Registrados</h2>
+    <div class="usuarios-grid" id="adminsGrid">             </div>
+  </section>
+
+    <div style="text-align: center; margin-top: 30px; margin-bottom: 30px;">
+        <a href="index.html" class="button">Regresar al Inicio</a>
+    </div>
+
+    <div id="modalPermisos" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); justify-content:center; align-items:center;">
+    <div style="background:#222; padding:20px; border-radius:10px; width:300px; color:white;">
+      <h3>Editar Permisos de Administrador</h3>
+      <form id="formPermisos">
+        <label><input type="checkbox" value="agregar_productos" /> Agregar productos</label><br />
+        <label><input type="checkbox" value="vender_cafes" /> Vender cafés</label><br />
+        <label><input type="checkbox" value="registrar_reservas" /> Registrar reservas</label><br />
+        <label><input type="checkbox" value="ver_reportes" /> Ver reportes</label><br /><br />
+        <label><input type="checkbox" value="gestionar_usuarios" /> Gestionar usuarios</label><br />
+        <label><input type="checkbox" value="gestionar_administradores" /> Gestionar administradores</label><br /><br />
+        <button type="submit" class="button">Guardar</button>
+        <button type="button" onclick="cerrarModal()" class="button">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+    <div id="rolModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:9999;">
+    <div style="background:#222; padding:20px; border-radius:10px; color:white;">
+      <h3>Cambiar Rol para: <span id="rolModalNombreUsuario"></span></h3>
+      <select id="nuevoRolSelect" style="width:100%; padding:10px; margin:15px 0;">
+        <option value="Administrador">Administrador</option>
+        <option value="Trabajador">Trabajador</option>
+        <option value="Gerente">Gerente</option>
+        <option value="Mesero">Mesero</option>
+        <option value="Cocinero">Cocinero</option>
+      </select>
+      <button onclick="guardarNuevoRol()" class="button">Guardar</button>
+      <button onclick="cerrarRolModal()" class="button">Cancelar</button>
+    </div>
+  </div>
+
+
+  <script>
+  // Referencias a elementos del DOM
+  const formularioAdmin = document.getElementById("registroAdminForm"); // Nuevo ID
+  const adminsGrid = document.getElementById("adminsGrid"); // Nuevo ID para el grid
+  let adminActualIndex = null; // Para el índice del administrador que se está editando
+
+  // Función para cargar y mostrar los administradores
+  function cargarAdministradores() {
+    const administradores = JSON.parse(localStorage.getItem("administradores")) || []; // Usar "administradores"
+    adminsGrid.innerHTML = ""; // Limpiar las tarjetas existentes
+
+    if (administradores.length === 0) {
+      adminsGrid.innerHTML = '<p style="color: #ccc; text-align: center;">No hay administradores registrados.</p>';
+      return;
+    }
+
+    administradores.forEach((admin, index) => {
+      const card = document.createElement("div");
+      card.className = "usuario-card"; // Reutilizar la clase si sus estilos te sirven
+      card.innerHTML = `
+        <p><strong>${admin.rol}</strong> : ${admin.nombre}</p>
+        <small>Usuario: ${admin.usuario}</small><br>
+        <small>Correo: ${admin.email}</small><br>
+        <small>Permisos: ${admin.permisos?.join(", ") || "Ninguno"}</small><br>
+        <a href="#" onclick="abrirModalAdmin(${index})" class="button">Editar Permisos</a>
+        <a href="#" onclick="cambiarRolAdmin(${index})" class="button">Cambiar Rol</a>          <a href="#" onclick="eliminarAdministrador(${index})" class="button">Eliminar</a>
+      `;
+      adminsGrid.appendChild(card);
+    });
+  }
+
+  // Event Listener para el formulario de registro de administradores
+  formularioAdmin.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const nombre = document.getElementById("adminRegNombre").value.trim();
+    const usuario = document.getElementById("adminRegUsuario").value.trim();
+    const correo = document.getElementById("adminRegCorreo").value.trim();
+    const contrasena = document.getElementById("adminRegContrasena").value.trim();
+
+    if (!nombre || !usuario || !correo || !contrasena) {
+      alert("Por favor, completa todos los campos para el administrador.");
+      return;
+    }
+
+    const nuevoAdministrador = { nombre, usuario, email: correo, password: contrasena, rol: "Administrador", permisos: [] };
+    let administradores = JSON.parse(localStorage.getItem("administradores")) || [];
+
+    // Verifica si ya existe un administrador con el mismo correo o nombre de usuario
+    const yaExiste = administradores.some(a => a.email === nuevoAdministrador.email || a.usuario === nuevoAdministrador.usuario);
+    if (yaExiste) {
+      const msg = document.createElement("p");
+      msg.textContent = "⚠️ Ya existe un administrador con este usuario o correo.";
+      msg.style.color = "orange";
+      msg.style.fontWeight = "bold";
+      formularioAdmin.appendChild(msg);
+      setTimeout(() => msg.remove(), 3000);
+      return;
+    }
+
+    administradores.push(nuevoAdministrador);
+    localStorage.setItem("administradores", JSON.stringify(administradores));
+
+    formularioAdmin.reset();
+    cargarAdministradores(); // Recarga la lista de administradores
+  });
+
+  // Función para eliminar un administrador
+  function eliminarAdministrador(index) {
+    const administradores = JSON.parse(localStorage.getItem("administradores")) || [];
+    if (confirm("¿Estás seguro de eliminar a este administrador?")) {
+      administradores.splice(index, 1);
+      localStorage.setItem("administradores", JSON.stringify(administradores));
+      cargarAdministradores();
+    }
+  }
+
+  // Funciones del Modal de Permisos (adaptadas para administradores)
+  function abrirModalAdmin(index) {
+    adminActualIndex = index;
+    const administradores = JSON.parse(localStorage.getItem("administradores")) || [];
+    const admin = administradores[index];
+
+    const checkboxes = document.querySelectorAll("#formPermisos input[type=checkbox]");
+    checkboxes.forEach(cb => {
+      cb.checked = admin.permisos?.includes(cb.value);
+    });
+
+    document.getElementById("modalPermisos").style.display = "flex";
+  }
+
+  function cerrarModal() {
+    document.getElementById("modalPermisos").style.display = "none";
+  }
+
+  document.getElementById("formPermisos").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const seleccionados = Array.from(this.querySelectorAll("input[type=checkbox]:checked")).map(cb => cb.value);
+
+    const administradores = JSON.parse(localStorage.getItem("administradores")) || [];
+    administradores[adminActualIndex].permisos = seleccionados;
+    localStorage.setItem("administradores", JSON.stringify(administradores));
+    cerrarModal();
+    cargarAdministradores(); // Recarga la lista de administradores
+  });
+
+  // Funciones del Modal de Cambio de Rol (adaptadas para administradores)
+  // Aunque un administrador generalmente no cambiaría de rol, se mantiene la funcionalidad
+  // Si quieres que los administradores solo sean administradores y no puedan cambiar de rol,
+  // simplemente omite el enlace "Cambiar Rol" en la tarjeta del administrador.
+  function cambiarRolAdmin(index) {
+    adminActualIndex = index; // Usar el índice del administrador actual
+    const administradores = JSON.parse(localStorage.getItem("administradores")) || [];
+    const admin = administradores[index];
+
+    document.getElementById("rolModalNombreUsuario").textContent = admin.nombre;
+    const nuevoRolSelect = document.getElementById("nuevoRolSelect");
+    Array.from(nuevoRolSelect.options).forEach(option => {
+      option.selected = (option.value === admin.rol);
+    });
+
+    document.getElementById("rolModal").style.display = "flex";
+  }
+
+  function cerrarRolModal() {
+    document.getElementById("rolModal").style.display = "none";
+  }
+
+  function guardarNuevoRol() { // No necesita 'index' como parámetro si usamos adminActualIndex
+    const administradores = JSON.parse(localStorage.getItem("administradores")) || [];
+    const nuevoRol = document.getElementById("nuevoRolSelect").value;
+
+    if (nuevoRol !== administradores[adminActualIndex].rol) {
+      if (confirm(`¿Seguro que deseas cambiar el rol de ${administradores[adminActualIndex].nombre} a "${nuevoRol}"?`)) {
+        administradores[adminActualIndex].rol = nuevoRol;
+        localStorage.setItem("administradores", JSON.stringify(administradores));
+        cerrarRolModal();
+        cargarAdministradores(); // Recarga la lista de administradores
+      }
+    } else {
+      cerrarRolModal();
+    }
+  }
+
+
+  // Cargar los administradores al cargar la página
+  document.addEventListener("DOMContentLoaded", cargarAdministradores);
+</script>
+
+
+</body>
+</html>
